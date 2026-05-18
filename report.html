@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lapor Player — Sora Server. Laporkan pemain yang melanggar aturan." />
+  <title>Lapor Player — Sora Server</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Report-page specific styles ── */
+    .report-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+    .report-card-header { margin-bottom: 1.5rem; }
+    .report-card-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.35rem;
+    }
+    .report-card-sub {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .form-section-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 1.75rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section-label:first-of-type { margin-top: 0; }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+    /* File upload */
+    .file-upload-area {
+      position: relative;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: rgba(255,255,255,0.02);
+    }
+    .file-upload-area:hover,
+    .file-upload-area.drag-over {
+      border-color: var(--danger);
+      background: rgba(244,63,94,0.04);
+    }
+    .file-upload-area input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .file-upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .file-upload-title {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .file-upload-title span { color: var(--danger); font-weight: 600; }
+    .file-upload-hint { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .file-upload-accept { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* File preview */
+    .file-preview-list { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .file-preview-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+    }
+    .file-preview-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .file-preview-name {
+      flex: 1;
+      color: var(--text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-preview-size { color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
+    .file-preview-remove {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+      border-radius: var(--radius-sm);
+      transition: color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .file-preview-remove:hover { color: var(--danger); background: rgba(244,63,94,0.1); }
+
+    /* Info panel cards */
+    .info-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.5rem;
+    }
+    .info-card-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 1rem;
+    }
+    .guide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+    .guide-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .guide-list li .g-icon { font-size: 0.95rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .guide-list li .g-icon.good { color: #22c55e; }
+    .guide-list li .g-icon.bad  { color: var(--danger); }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 1.05rem;
+      top: 2rem;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-dot {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-body { padding-top: 0.25rem; }
+    .timeline-title { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.15rem; }
+    .timeline-desc { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
+
+    /* Submit warning */
+    .submit-warning {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .submit-warning i { color: #f59e0b; flex-shrink: 0; }
+
+    /* Alert flex */
+    .alert { display: none; }
+
+    /* Responsive two-col */
+    @media (max-width: 900px) {
+      .report-layout { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+
+      <!-- Logo -->
+      <a class="navbar-logo" href="index.html">
+        <div class="navbar-logo-icon">S</div>
+        <span class="navbar-logo-text">SORA SERVER</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="navbar-links">
+        <li><a href="index.html" class="navbar-link">Home</a></li>
+        <li><a href="index.html#servers" class="navbar-link">Servers</a></li>
+        <li><a href="index.html#features" class="navbar-link">Features</a></li>
+        <li><a href="survival.html" class="navbar-link nav-badge survival">🌲 Survival</a></li>
+        <li><a href="soracitu.html" class="navbar-link nav-badge">🏙️ Sora City</a></li>
+      </ul>
+
+      <!-- Nav Action Buttons -->
+      <div class="navbar-actions" id="navAuthBtns">
+        <a href="login.html" class="btn btn-ghost btn-sm">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="register.html" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-user-plus"></i> Daftar
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-menu-links">
+        <li><a href="index.html" class="mobile-menu-link">🏠 Home</a></li>
+        <li><a href="index.html#servers" class="mobile-menu-link">🌍 Servers</a></li>
+        <li><a href="index.html#features" class="mobile-menu-link">✨ Features</a></li>
+        <li><a href="survival.html" class="mobile-menu-link">🌲 Survival</a></li>
+        <li><a href="soracitu.html" class="mobile-menu-link">🏙️ Sora City</a></li>
+      </ul>
+      <div class="mobile-menu-actions">
+        <a href="login.html" class="btn btn-ghost btn-block">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="register.html" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-user-plus"></i> Daftar
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- ░░ PAGE HEADER ░░ -->
+  <div style="padding-top:calc(var(--navbar-height) + 3rem); padding-bottom:2rem; text-align:center; background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(244,63,94,0.12) 0%, transparent 70%);">
+    <span class="section-tag" style="background:rgba(244,63,94,0.12);color:var(--danger);border-color:rgba(244,63,94,0.25);">🚩 LAPOR PELANGGARAN</span>
+    <h1 class="section-title" style="font-size:clamp(1.8rem,4vw,2.8rem);margin-top:0.75rem;">Lapor <span style="background:linear-gradient(135deg,#f43f5e,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Player</span></h1>
+    <p style="color:var(--text-secondary);max-width:50ch;margin:0.75rem auto 0;font-size:1rem;line-height:1.7;">Laporkan pemain yang melanggar aturan. Tim kami akan meninjau laporan kamu dalam 1&times;24 jam.</p>
+  </div>
+
+
+
+  <!-- ░░ MAIN CONTENT ░░ -->
+  <section class="section" style="padding-top:1rem;">
+    <div class="container">
+      <div class="report-layout" style="display:grid;grid-template-columns:1fr 320px;gap:2rem;align-items:start;">
+
+        <!-- ══════════════════════════════════════
+             LEFT — Report Form
+        ══════════════════════════════════════ -->
+        <div class="report-card">
+          <div class="report-card-header">
+            <h2 class="report-card-title">📝 Form Laporan</h2>
+            <p class="report-card-sub">Isi semua kolom dengan detail agar laporan dapat diproses</p>
+          </div>
+
+          <!-- Error Alert -->
+          <div class="alert alert-danger" id="reportError" role="alert" style="display:none;margin-bottom:1rem;">
+            <i class="fa-solid fa-circle-exclamation alert-icon"></i>
+            <span>Terjadi kesalahan.</span>
+          </div>
+
+          <!-- Success Alert -->
+          <div class="alert alert-success" id="reportSuccess" role="alert" style="display:none;margin-bottom:1rem;">
+            <i class="fa-solid fa-circle-check alert-icon"></i>
+            <span>Laporan berhasil dikirim! ID laporan: #xxxxx</span>
+          </div>
+
+          <form id="reportForm" novalidate>
+
+            <!-- ── Kolom 1: Informasi Pelapor ── -->
+            <div class="form-section-label">Informasi Pelapor</div>
+            <div class="form-grid-2">
+
+              <div class="form-group">
+                <label class="form-label" for="reporterUsername">
+                  <i class="fa-solid fa-user"></i> Username Minecraft Kamu
+                </label>
+                <div class="form-input-wrap">
+                  <i class="fa-solid fa-user form-input-icon"></i>
+                  <input type="text" id="reporterUsername" class="form-input has-icon" placeholder="Login untuk mengisi otomatis" readonly />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reportServer">
+                  <i class="fa-solid fa-server"></i> Server
+                </label>
+                <div class="form-input-wrap">
+                  <i class="fa-solid fa-server form-input-icon"></i>
+                  <select id="reportServer" class="form-input has-icon">
+                    <option value="survival">Survival Economy</option>
+                    <option value="soracitu">Sora City</option>
+                    <option value="both">Kedua Server</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ── Kolom 2: Informasi Terlapor ── -->
+            <div class="form-section-label">Informasi Terlapor</div>
+
+            <div class="form-group">
+              <label class="form-label" for="reportedUsername">
+                <i class="fa-solid fa-user-slash"></i> Username Minecraft Terlapor <span style="color:var(--danger);">*</span>
+              </label>
+              <div class="form-input-wrap">
+                <i class="fa-solid fa-user-slash form-input-icon"></i>
+                <input type="text" id="reportedUsername" class="form-input has-icon" placeholder="Username player yang dilaporkan" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reportReason">
+                <i class="fa-solid fa-triangle-exclamation"></i> Alasan Pelanggaran <span style="color:var(--danger);">*</span>
+              </label>
+              <div class="form-input-wrap">
+                <i class="fa-solid fa-triangle-exclamation form-input-icon"></i>
+                <select id="reportReason" class="form-input has-icon" required>
+                  <option value="">-- Pilih Alasan --</option>
+                  <option value="Cheating / Hacking">Cheating / Hacking</option>
+                  <option value="Griefing / Merusak bangunan">Griefing / Merusak bangunan</option>
+                  <option value="Scam / Penipuan">Scam / Penipuan</option>
+                  <option value="Kata-kata kasar / Toxic">Kata-kata kasar / Toxic</option>
+                  <option value="Bug Abuse">Bug Abuse</option>
+                  <option value="Spam Chat">Spam Chat</option>
+                  <option value="NSFW Content">NSFW Content</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reportDetail">
+                <i class="fa-solid fa-align-left"></i> Detail Kejadian <span style="color:var(--danger);">*</span>
+              </label>
+              <textarea id="reportDetail" class="form-textarea" placeholder="Jelaskan secara detail apa yang terjadi..." minlength="20" rows="5" required></textarea>
+            </div>
+
+            <!-- ── Kolom 3: Bukti ── -->
+            <div class="form-section-label">Bukti</div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fa-solid fa-paperclip"></i> Upload Bukti
+              </label>
+              <div class="file-upload-area" id="uploadArea">
+                <input type="file" id="evidenceFile" accept="image/*,video/*" multiple />
+                <div class="file-upload-icon">📎</div>
+                <div class="file-upload-title">Drag &amp; drop atau <span>klik untuk upload</span></div>
+                <div class="file-upload-hint">Foto screenshot atau video bukti</div>
+                <div class="file-upload-accept">Format: JPG, PNG, MP4, GIF &bull; Max 10MB per file</div>
+              </div>
+              <div id="filePreviewList" class="file-preview-list"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="evidenceUrl">
+                <i class="fa-solid fa-link"></i> Link Bukti <span style="color:var(--text-muted);font-weight:400;">(opsional)</span>
+              </label>
+              <div class="form-input-wrap">
+                <i class="fa-solid fa-link form-input-icon"></i>
+                <input type="url" id="evidenceUrl" class="form-input has-icon" placeholder="https://youtube.com/... atau link screenshot" />
+              </div>
+            </div>
+
+            <!-- Submit Area -->
+            <div class="submit-warning">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Laporan palsu dapat berakibat sanksi pada akun kamu</span>
+            </div>
+            <button type="submit" id="submitReportBtn" class="btn btn-danger btn-full btn-lg">
+              <i class="fa-solid fa-flag"></i> Kirim Laporan
+            </button>
+
+          </form>
+        </div>
+
+
+
+        <!-- ══════════════════════════════════════
+             RIGHT — Info Panel
+        ══════════════════════════════════════ -->
+        <aside class="info-panel">
+
+          <!-- Card 1: Panduan -->
+          <div class="info-card">
+            <h3 class="info-card-title">📋 Panduan Laporan</h3>
+            <ul class="guide-list">
+              <li>
+                <span class="g-icon good">✓</span>
+                <span>Sertakan bukti yang jelas (screenshot/video)</span>
+              </li>
+              <li>
+                <span class="g-icon good">✓</span>
+                <span>Tulis detail kejadian dengan lengkap</span>
+              </li>
+              <li>
+                <span class="g-icon good">✓</span>
+                <span>Pastikan username terlapor sudah benar</span>
+              </li>
+              <li>
+                <span class="g-icon bad">✗</span>
+                <span>Jangan laporan palsu / iseng</span>
+              </li>
+              <li>
+                <span class="g-icon bad">✗</span>
+                <span>Jangan laporan tanpa bukti konkret</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Proses Laporan -->
+          <div class="info-card">
+            <h3 class="info-card-title">⏱️ Proses Laporan</h3>
+            <div class="timeline">
+
+              <div class="timeline-item">
+                <div class="timeline-dot">📥</div>
+                <div class="timeline-body">
+                  <p class="timeline-title">Diterima</p>
+                  <p class="timeline-desc">Laporan masuk ke sistem</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot">🔍</div>
+                <div class="timeline-body">
+                  <p class="timeline-title">Investigasi</p>
+                  <p class="timeline-desc">Tim admin menganalisis</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot">⚖️</div>
+                <div class="timeline-body">
+                  <p class="timeline-title">Keputusan</p>
+                  <p class="timeline-desc">Tindakan diambil</p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot">✅</div>
+                <div class="timeline-body">
+                  <p class="timeline-title">Selesai</p>
+                  <p class="timeline-desc">Laporan ditutup dengan resolusi</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 3: Bantuan Cepat -->
+          <div class="info-card">
+            <h3 class="info-card-title">📞 Butuh Bantuan Cepat?</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);margin:0 0 1rem;">Hubungi tim admin kami langsung melalui Discord untuk masalah mendesak.</p>
+            <a href="#" class="btn btn-discord btn-full">
+              <i class="fa-brands fa-discord"></i> Join Discord
+            </a>
+            <p style="font-size:0.78rem;color:var(--text-muted);text-align:center;margin:0.6rem 0 0;">
+              <i class="fa-solid fa-clock" style="margin-right:0.3rem;"></i>Response time: ~2 jam
+            </p>
+          </div>
+
+        </aside>
+
+      </div><!-- /.report-layout -->
+    </div><!-- /.container -->
+  </section>
+
+
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logo-icon">S</div>
+            <span class="footer-logo-text">SORA SERVER</span>
+          </a>
+          <p class="footer-desc">Minecraft Indonesia terbaik dengan dua dunia berbeda. Bergabunglah dengan komunitas kami yang terus berkembang sejak 2024.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="footer-social" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Server Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Server</h4>
+          <ul class="footer-links">
+            <li><a href="survival.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Survival Economy</a></li>
+            <li><a href="soracitu.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Sora City</a></li>
+            <li><a href="index.html#features" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Fitur Server</a></li>
+            <li><a href="index.html#stats" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Statistik</a></li>
+          </ul>
+        </div>
+
+        <!-- Akun Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Akun</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Login</a></li>
+            <li><a href="register.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Daftar</a></li>
+            <li><a href="dashboard.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Dashboard</a></li>
+            <li><a href="report.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Report</a></li>
+          </ul>
+        </div>
+
+        <!-- Info Column -->
+        <div class="footer-col footer-info">
+          <h4 class="footer-col-title">Info Server</h4>
+          <div class="footer-ip-box">
+            <span class="footer-ip-label">IP SERVER</span>
+            <span class="footer-ip-value">play.soraserver.id</span>
+            <button class="footer-ip-copy" id="footerCopyIpBtn" aria-label="Salin IP server">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+          <ul class="footer-info-list">
+            <li><i class="fa-solid fa-circle-check"></i><span>Versi: Java 1.20+</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Server: 24/7 Online</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Lokasi: Indonesia</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Sora Server. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-bottom-sep">·</span>
+          <a href="#" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ░░ TOAST CONTAINER ░░ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ░░ BACK TO TOP ░░ -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+
+
+  <!-- ░░ SCRIPTS ░░ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await getCurrentUser().catch(() => null);
+
+      if (user) {
+        try {
+          const profile = await getProfile(user.id);
+          document.getElementById('reporterUsername').value = profile.minecraft_username;
+          const navBtns = document.getElementById('navAuthBtns');
+          if (navBtns) navBtns.innerHTML = `<a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-gauge"></i> Dashboard</a>`;
+        } catch(e) {}
+      }
+
+      // ── Drag & drop file upload ──
+      const uploadArea  = document.getElementById('uploadArea');
+      const fileInput   = document.getElementById('evidenceFile');
+      const fileList    = document.getElementById('filePreviewList');
+      let uploadedFiles = [];
+
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+      });
+      uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        handleFiles([...e.dataTransfer.files]);
+      });
+      fileInput.addEventListener('change', () => handleFiles([...fileInput.files]));
+
+      function handleFiles(files) {
+        files.forEach(file => {
+          if (file.size > 10 * 1024 * 1024) {
+            showToast(`File ${file.name} terlalu besar (max 10MB)`, 'error');
+            return;
+          }
+          if (uploadedFiles.length >= 5) {
+            showToast('Maksimal 5 file!', 'warning');
+            return;
+          }
+          uploadedFiles.push(file);
+          renderFilePreview();
+        });
+      }
+
+      function renderFilePreview() {
+        fileList.innerHTML = uploadedFiles.map((f, i) => `
+          <div class="file-preview-item">
+            <span class="file-preview-icon">${f.type.startsWith('video/') ? '🎬' : '🖼️'}</span>
+            <span class="file-preview-name">${f.name}</span>
+            <span class="file-preview-size">${(f.size / 1024).toFixed(0)} KB</span>
+            <button class="file-preview-remove" onclick="removeFile(${i})" aria-label="Hapus file">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        `).join('');
+      }
+
+      window.removeFile = (i) => {
+        uploadedFiles.splice(i, 1);
+        renderFilePreview();
+      };
+
+      // ── Form submit ──
+      const form       = document.getElementById('reportForm');
+      const submitBtn  = document.getElementById('submitReportBtn');
+      const errorBox   = document.getElementById('reportError');
+      const successBox = document.getElementById('reportSuccess');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const reportedUsername = document.getElementById('reportedUsername').value.trim();
+        const server           = document.getElementById('reportServer').value;
+        const reason           = document.getElementById('reportReason').value;
+        const detail           = document.getElementById('reportDetail').value.trim();
+        const evidenceUrl      = document.getElementById('evidenceUrl').value.trim();
+
+        if (!reportedUsername) { showToast('Isi username terlapor!', 'warning'); return; }
+        if (!reason)           { showToast('Pilih alasan pelanggaran!', 'warning'); return; }
+        if (detail.length < 20){ showToast('Detail minimal 20 karakter!', 'warning'); return; }
+        if (!user) {
+          showToast('Login dulu untuk melapor!', 'warning');
+          setTimeout(() => window.location.href = 'login.html', 1500);
+          return;
+        }
+
+        setLoading(submitBtn, true);
+        errorBox.style.display   = 'none';
+        successBox.style.display = 'none';
+
+        try {
+          const reportData = await submitReport(
+            user.id,
+            reportedUsername,
+            server === 'both' ? 'both' : server,
+            reason + ': ' + detail,
+            evidenceUrl || null
+          );
+
+          successBox.querySelector('span').textContent =
+            `Laporan berhasil dikirim! ID: #${reportData.id.slice(0, 8).toUpperCase()}`;
+          successBox.style.display = 'flex';
+          form.reset();
+          uploadedFiles = [];
+          renderFilePreview();
+          showToast('Laporan berhasil dikirim!', 'success');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch(err) {
+          document.querySelector('#reportError span').textContent = err.message;
+          errorBox.style.display = 'flex';
+          showToast('Gagal: ' + err.message, 'error');
+        } finally {
+          setLoading(submitBtn, false);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

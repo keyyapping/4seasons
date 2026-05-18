@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sora City — Rank & Topup Store. Dapatkan status sosial premium di Sora City! Dari Warga biasa hingga Konglomerat paling berpengaruh." />
+  <meta property="og:title" content="Sora City — Rank & Topup | Sora Server" />
+  <meta property="og:description" content="Dapatkan status sosial premium di Sora City! Dari Warga biasa hingga Konglomerat paling berpengaruh." />
+  <title>Sora City — Rank &amp; Topup | Sora Server</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Soracitu page-specific overrides ── */
+    .soracitu-hero { --hero-accent: var(--soracitu); }
+    .soracitu-hero .page-hero-eyebrow.soracitu { color: var(--soracitu); border-color: var(--soracitu-glow); background: rgba(96,165,250,.10); }
+    .gradient-text-soracitu { background: var(--grad-soracitu); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Rank card soracitu accent */
+    .rank-card[data-rank="vip"]  { --card-accent: var(--soracitu); }
+    .rank-card[data-rank="mvp"]  { --card-accent: var(--gold); }
+    .rank-card[data-rank="legend"] { --card-accent: #a855f7; }
+    .rank-card[data-rank="pendatang"] { --card-accent: var(--text-secondary); }
+
+    /* btn-soracitu */
+    .btn-soracitu {
+      background: var(--grad-soracitu);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 18px var(--soracitu-glow);
+    }
+    .btn-soracitu:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--soracitu-glow);
+      color: #fff;
+    }
+
+    /* tag-soracitu */
+    .tag-soracitu {
+      display: inline-block;
+      padding: .25rem .85rem;
+      border-radius: var(--radius-full);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-family: var(--font-nav);
+      color: var(--soracitu);
+      border: 1px solid var(--soracitu-glow);
+      background: rgba(96,165,250,.10);
+      margin-bottom: .75rem;
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      position: relative;
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--navbar-height) + 4rem) 1.5rem 3rem;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(96,165,250,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+    .page-hero-eyebrow {
+      display: inline-block;
+      padding: .28rem .9rem;
+      border-radius: var(--radius-full);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: var(--font-nav);
+      border: 1px solid transparent;
+      margin-bottom: 1rem;
+    }
+    .page-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      color: var(--text-primary);
+    }
+    .page-hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+    .page-hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+    /* Server stats bar */
+    .hero-server-stats {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-server-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .2rem;
+    }
+    .hero-server-stat-value {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--soracitu);
+    }
+    .hero-server-stat-label {
+      font-size: .72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-family: var(--font-nav);
+    }
+
+    /* ── Tabs ── */
+    .tabs-wrapper {
+      position: sticky;
+      top: var(--navbar-height);
+      z-index: 90;
+      background: var(--bg-deep);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+    .tabs-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      gap: .25rem;
+    }
+    .tab-btn {
+      padding: 1rem 1.4rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-nav);
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color var(--transition-base), border-color var(--transition-base);
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active { color: var(--soracitu); border-bottom-color: var(--soracitu); }
+
+    /* ── Section shared ── */
+    .sc-section { padding: 5rem 1.5rem; }
+    .sc-container { max-width: var(--container-max); margin: 0 auto; }
+    .section-header-sc { text-align: center; margin-bottom: 3rem; }
+    .section-title-sc {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: .75rem;
+    }
+    .section-sub-sc { color: var(--text-secondary); max-width: 580px; margin: 0 auto; line-height: 1.7; font-size: .97rem; }
+
+    /* ── Ranks Grid ── */
+    .ranks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .rank-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem 1.5rem;
+      position: relative;
+      cursor: pointer;
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+      --card-accent: var(--primary);
+    }
+    .rank-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--card-accent);
+      box-shadow: 0 12px 40px rgba(0,0,0,.5);
+    }
+    .rank-card-badge {
+      position: absolute;
+      top: -10px;
+      right: 1.25rem;
+      background: var(--grad-soracitu);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      padding: .22rem .7rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-nav);
+      text-transform: uppercase;
+    }
+    .rank-card-icon { font-size: 2.5rem; margin-bottom: .85rem; display: block; }
+    .rank-card-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: .35rem;
+    }
+    .rank-card-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--card-accent);
+      font-family: var(--font-heading);
+      margin-bottom: 1.1rem;
+    }
+    .rank-card-perks { list-style: none; margin-bottom: 1.4rem; display: flex; flex-direction: column; gap: .4rem; }
+    .rank-card-perks li { display: flex; align-items: flex-start; gap: .5rem; font-size: .88rem; color: var(--text-secondary); line-height: 1.4; }
+    .rank-card-perks li::before { content: '✔'; color: var(--card-accent); font-size: .8rem; margin-top: .1rem; flex-shrink: 0; }
+
+    /* ── Topup Section ── */
+    .topup-section { background: var(--bg-deep); }
+    .topup-grid { display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+    @media (max-width: 860px) { .topup-grid { grid-template-columns: 1fr; } }
+
+    .topup-form-card, .topup-summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+    .topup-form-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: .82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .07em; font-family: var(--font-nav); }
+    .form-input, .form-select {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      padding: .7rem 1rem;
+      font-size: .95rem;
+      font-family: var(--font-body);
+      transition: border-color var(--transition-base);
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--soracitu); }
+    .form-select option { background: var(--bg-deep); }
+
+    /* Amount grid */
+    .amount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+    @media (max-width: 500px) { .amount-grid { grid-template-columns: repeat(2,1fr); } }
+    .amount-option {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: .75rem .5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition-base), background var(--transition-base);
+      background: none;
+    }
+    .amount-option:hover { border-color: var(--soracitu); background: rgba(96,165,250,.06); }
+    .amount-option.selected { border-color: var(--soracitu); background: rgba(96,165,250,.12); }
+    .amount-option-coins { display: block; font-size: .95rem; font-weight: 700; color: var(--text-primary); font-family: var(--font-heading); }
+    .amount-option-label { display: block; font-size: .7rem; color: var(--text-muted); margin-top: .15rem; font-family: var(--font-nav); }
+    .amount-option-price { display: block; font-size: .82rem; color: var(--soracitu); font-weight: 600; margin-top: .25rem; }
+
+    /* Payment methods */
+    .payment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+    @media (max-width: 500px) { .payment-grid { grid-template-columns: repeat(2,1fr); } }
+    .payment-option {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: .7rem .5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition-base), background var(--transition-base);
+      background: none;
+    }
+    .payment-option:hover { border-color: var(--soracitu); background: rgba(96,165,250,.06); }
+    .payment-option.selected { border-color: var(--soracitu); background: rgba(96,165,250,.12); }
+    .payment-option-icon { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+    .payment-option-name { font-size: .78rem; color: var(--text-secondary); font-family: var(--font-nav); font-weight: 600; }
+
+    /* Summary card */
+    .topup-summary-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.25rem; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-row-label { color: var(--text-secondary); }
+    .summary-row-value { color: var(--text-primary); font-weight: 600; }
+    .summary-total { margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .summary-total-label { font-weight: 700; color: var(--text-primary); font-size: 1rem; }
+    .summary-total-value { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; color: var(--soracitu); }
+
+    /* btn-full */
+    .btn-full { width: 100%; justify-content: center; }
+    .btn-lg { padding: .85rem 1.75rem; font-size: 1rem; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8,11,20,.80);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-base), visibility var(--transition-base);
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      transform: translateY(20px) scale(.97);
+      transition: transform var(--transition-spring);
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,.06);
+      border: none;
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .modal-close:hover { background: var(--danger-glow); color: var(--danger); }
+    .modal-icon { font-size: 3rem; text-align: center; margin-bottom: 1rem; }
+    .modal-title { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-primary); text-align: center; margin-bottom: .5rem; }
+    .modal-sub { color: var(--text-secondary); text-align: center; font-size: .92rem; margin-bottom: 1.75rem; line-height: 1.6; }
+    .modal-form .form-group { margin-bottom: 1.1rem; }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+
+  <!-- ░░ PAGE LOADER ░░ -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader-inner">
+      <div class="page-loader-logo">SORA</div>
+      <div class="page-loader-bar">
+        <div class="page-loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ ANNOUNCEMENT BAR ░░ -->
+  <div class="announcement-bar" id="announcementBar">
+    <span class="announcement-text">
+      🏙️ Sora City kini hadir! Beli rank &amp; topup Kota Coin sekarang →
+    </span>
+    <button class="announcement-close" id="closeAnnouncement" aria-label="Tutup pengumuman">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+
+      <!-- Logo -->
+      <a class="navbar-logo" href="index.html">
+        <div class="navbar-logo-icon">S</div>
+        <span class="navbar-logo-text">SORA SERVER</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="navbar-links">
+        <li><a href="index.html" class="navbar-link">Home</a></li>
+        <li><a href="report.html" class="navbar-link">Report</a></li>
+        <li><a href="survival.html" class="navbar-link navbar-badge survival">🌲 Survival</a></li>
+        <li><a href="soracitu.html" class="navbar-link navbar-badge soracitu active">🏙️ Sora City</a></li>
+      </ul>
+
+      <!-- Nav Action Buttons -->
+      <div class="navbar-actions" id="navAuthBtns">
+        <a href="login.html" class="btn btn-ghost btn-sm">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="dashboard.html" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-menu-links">
+        <li><a href="index.html" class="mobile-menu-link">🏠 Home</a></li>
+        <li><a href="report.html" class="mobile-menu-link">🚩 Report</a></li>
+        <li><a href="survival.html" class="mobile-menu-link">🌲 Survival</a></li>
+        <li><a href="soracitu.html" class="mobile-menu-link">🏙️ Sora City</a></li>
+      </ul>
+      <div class="mobile-menu-actions">
+        <a href="login.html" class="btn btn-ghost btn-block">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="dashboard.html" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ PAGE HERO ░░ -->
+  <section class="page-hero soracitu-hero">
+    <div class="page-hero-inner">
+      <span class="page-hero-eyebrow soracitu">🏙️ SORA CITY</span>
+
+      <h1 class="page-hero-title">
+        <span class="gradient-text-soracitu">Sora City</span><br/>
+        Rank &amp; Topup Store
+      </h1>
+
+      <p class="page-hero-sub">
+        Dapatkan status sosial premium di Sora City! Dari Warga biasa hingga Konglomerat paling berpengaruh.
+      </p>
+
+      <div class="page-hero-actions">
+        <a href="#ranks" class="btn btn-soracitu btn-lg">🏙️ Lihat Rank</a>
+        <a href="#topup" class="btn btn-outline btn-lg">💰 Topup Kota</a>
+      </div>
+
+      <!-- Server Stats -->
+      <div class="hero-server-stats">
+        <div class="hero-server-stat">
+          <span class="hero-server-stat-value" id="scOnline">...</span>
+          <span class="hero-server-stat-label">Online</span>
+        </div>
+        <div class="hero-server-stat">
+          <span class="hero-server-stat-value">150</span>
+          <span class="hero-server-stat-label">Max Players</span>
+        </div>
+        <div class="hero-server-stat">
+          <span class="hero-server-stat-value">1.20.x</span>
+          <span class="hero-server-stat-label">Versi</span>
+        </div>
+        <div class="hero-server-stat">
+          <span class="hero-server-stat-value">99.9%</span>
+          <span class="hero-server-stat-label">Uptime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ TABS ░░ -->
+  <div class="tabs-wrapper">
+    <div class="tabs-inner">
+      <button class="tab-btn active" data-tab="ranks" onclick="switchTab('ranks', this)">🏙️ Jabatan Kota</button>
+      <button class="tab-btn" data-tab="topup" onclick="switchTab('topup', this)">💰 Topup Koin</button>
+    </div>
+  </div>
+
+
+
+  <!-- ░░ RANKS SECTION ░░ -->
+  <section id="ranks" class="sc-section">
+    <div class="sc-container">
+
+      <div class="section-header-sc">
+        <span class="tag-soracitu">🏙️ JABATAN KOTA</span>
+        <h2 class="section-title-sc">Pilih Status <span class="gradient-text-soracitu">Sosialmu</span></h2>
+        <p class="section-sub-sc">Di Sora City, jabatan mencerminkan pengaruhmu di kota. Setiap jabatan membuka akses area dan fitur eksklusif.</p>
+      </div>
+
+      <div class="ranks-grid">
+
+        <!-- Pendatang -->
+        <div class="rank-card reveal" data-rank="pendatang" onclick="openBuyRank('pendatang', 'Pendatang', 20000)">
+          <span class="rank-card-icon">🏠</span>
+          <div class="rank-card-name">Pendatang</div>
+          <div class="rank-card-price">Rp 20.000</div>
+          <ul class="rank-card-perks">
+            <li>Akses area residensial</li>
+            <li>Sewa apartemen</li>
+            <li>Transportasi umum</li>
+            <li>Chat putih</li>
+          </ul>
+          <button class="btn btn-soracitu btn-sm btn-full" onclick="event.stopPropagation(); openBuyRank('pendatang', 'Pendatang', 20000)">
+            Beli Rank
+          </button>
+        </div>
+
+        <!-- Warga -->
+        <div class="rank-card reveal" data-rank="vip" onclick="openBuyRank('warga', 'Warga', 45000)">
+          <span class="rank-card-badge">POPULER</span>
+          <span class="rank-card-icon">🏪</span>
+          <div class="rank-card-name">Warga</div>
+          <div class="rank-card-price">Rp 45.000</div>
+          <ul class="rank-card-perks">
+            <li>All Pendatang</li>
+            <li>Buka usaha kecil</li>
+            <li>Zona komersial</li>
+            <li>Nama hijau</li>
+            <li>Voting rights</li>
+          </ul>
+          <button class="btn btn-soracitu btn-sm btn-full" onclick="event.stopPropagation(); openBuyRank('warga', 'Warga', 45000)">
+            Beli Rank
+          </button>
+        </div>
+
+        <!-- Pengusaha -->
+        <div class="rank-card reveal" data-rank="mvp" onclick="openBuyRank('pengusaha', 'Pengusaha', 100000)">
+          <span class="rank-card-icon">💰</span>
+          <div class="rank-card-name">Pengusaha</div>
+          <div class="rank-card-price">Rp 100.000</div>
+          <ul class="rank-card-perks">
+            <li>All Warga</li>
+            <li>Usaha besar</li>
+            <li>Zona industri</li>
+            <li>Nama emas</li>
+            <li>Priority plots</li>
+            <li>Tax -20%</li>
+          </ul>
+          <button class="btn btn-soracitu btn-sm btn-full" onclick="event.stopPropagation(); openBuyRank('pengusaha', 'Pengusaha', 100000)">
+            Beli Rank
+          </button>
+        </div>
+
+        <!-- Konglomerat -->
+        <div class="rank-card reveal" data-rank="legend" onclick="openBuyRank('konglomerat', 'Konglomerat', 200000)">
+          <span class="rank-card-icon">🏦</span>
+          <div class="rank-card-name">Konglomerat</div>
+          <div class="rank-card-price">Rp 200.000</div>
+          <ul class="rank-card-perks">
+            <li>All Pengusaha</li>
+            <li>Zona elit</li>
+            <li>Custom building</li>
+            <li>Nama ungu</li>
+            <li>Pengaruh ekonomi</li>
+            <li>Discord role</li>
+            <li>Akses rapat wali kota</li>
+          </ul>
+          <button class="btn btn-soracitu btn-sm btn-full" onclick="event.stopPropagation(); openBuyRank('konglomerat', 'Konglomerat', 200000)">
+            Beli Rank
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ░░ TOPUP SECTION ░░ -->
+  <section id="topup" class="sc-section topup-section">
+    <div class="sc-container">
+
+      <div class="section-header-sc">
+        <span class="tag-soracitu">💰 TOPUP KOIN</span>
+        <h2 class="section-title-sc">Topup <span class="gradient-text-soracitu">Kota Coin</span></h2>
+        <p class="section-sub-sc">Topup Kota Coin untuk bayar sewa, beli properti, dan transaksi di Sora City.</p>
+      </div>
+
+      <div class="topup-grid">
+
+        <!-- Form -->
+        <div class="topup-form-card">
+
+          <!-- Username -->
+          <div class="topup-form-title"><span>🏙️</span> Detail Pembelian</div>
+          <div class="form-group">
+            <label class="form-label" for="topupUsername">Username Minecraft</label>
+            <input class="form-input" type="text" id="topupUsername" placeholder="Masukkan username kamu" autocomplete="off" />
+          </div>
+
+          <!-- Amount -->
+          <div class="form-group">
+            <label class="form-label">Jumlah Kota Coin</label>
+            <div class="amount-grid">
+              <div class="amount-option" data-coins="100" data-price="10000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">100</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 10.000</span>
+              </div>
+              <div class="amount-option" data-coins="250" data-price="22500" onclick="selectAmount(this)">
+                <span class="amount-option-coins">250</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 22.500</span>
+              </div>
+              <div class="amount-option" data-coins="500" data-price="42500" onclick="selectAmount(this)">
+                <span class="amount-option-coins">500</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 42.500</span>
+              </div>
+              <div class="amount-option" data-coins="1000" data-price="80000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">1.000</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 80.000</span>
+              </div>
+              <div class="amount-option" data-coins="2500" data-price="190000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">2.500</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 190.000</span>
+              </div>
+              <div class="amount-option" data-coins="5000" data-price="370000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">5.000</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 370.000</span>
+              </div>
+              <div class="amount-option" data-coins="10000" data-price="700000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">10.000</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 700.000</span>
+              </div>
+              <div class="amount-option" data-coins="25000" data-price="1600000" onclick="selectAmount(this)">
+                <span class="amount-option-coins">25.000</span>
+                <span class="amount-option-label">Kota Coin</span>
+                <span class="amount-option-price">Rp 1.600.000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="form-group">
+            <label class="form-label">Metode Pembayaran</label>
+            <div class="payment-grid">
+              <div class="payment-option" data-method="QRIS" onclick="selectPayment(this)">
+                <span class="payment-option-icon">📱</span>
+                <span class="payment-option-name">QRIS</span>
+              </div>
+              <div class="payment-option" data-method="Transfer Bank" onclick="selectPayment(this)">
+                <span class="payment-option-icon">🏦</span>
+                <span class="payment-option-name">Transfer Bank</span>
+              </div>
+              <div class="payment-option" data-method="GoPay" onclick="selectPayment(this)">
+                <span class="payment-option-icon">💚</span>
+                <span class="payment-option-name">GoPay</span>
+              </div>
+              <div class="payment-option" data-method="OVO" onclick="selectPayment(this)">
+                <span class="payment-option-icon">💜</span>
+                <span class="payment-option-name">OVO</span>
+              </div>
+              <div class="payment-option" data-method="Dana" onclick="selectPayment(this)">
+                <span class="payment-option-icon">🔵</span>
+                <span class="payment-option-name">Dana</span>
+              </div>
+              <div class="payment-option" data-method="ShopeePay" onclick="selectPayment(this)">
+                <span class="payment-option-icon">🧡</span>
+                <span class="payment-option-name">ShopeePay</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group">
+            <label class="form-label" for="topupNotes">Catatan (opsional)</label>
+            <input class="form-input" type="text" id="topupNotes" placeholder="Catatan tambahan..." />
+          </div>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="topup-summary-card">
+          <div class="topup-summary-title">📋 Ringkasan Order</div>
+
+          <div class="summary-row">
+            <span class="summary-row-label">Server</span>
+            <span class="summary-row-value">Sora City</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Username</span>
+            <span class="summary-row-value" id="summaryUsername">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Jumlah Koin</span>
+            <span class="summary-row-value" id="summaryCoins">— Kota Coin</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Metode</span>
+            <span class="summary-row-value" id="summaryMethod">—</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="summary-total-label">Total</span>
+            <span class="summary-total-value" id="summaryPrice">Rp 0</span>
+          </div>
+
+          <div style="margin-top:1.5rem;">
+            <button class="btn btn-soracitu btn-full btn-lg" id="topupBtn" onclick="submitTopup()">
+              💰 Beli Kota Coin
+            </button>
+          </div>
+
+          <p style="margin-top:1rem; font-size:.78rem; color:var(--text-muted); text-align:center; line-height:1.5;">
+            Dengan membeli, kamu menyetujui <a href="#" style="color:var(--soracitu);">syarat &amp; ketentuan</a> Sora Server.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ░░ BUY RANK MODAL ░░ -->
+  <div class="modal-overlay" id="buyRankModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeBuyRank()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-icon" id="modalRankIcon">🏙️</div>
+      <div class="modal-title" id="modalRankTitle">Beli Rank</div>
+      <div class="modal-sub" id="modalRankSub">Lengkapi data berikut untuk melanjutkan pembelian rank.</div>
+
+      <div class="modal-form">
+        <input type="hidden" id="modalRankSlug" />
+        <input type="hidden" id="modalRankPrice" />
+
+        <div class="form-group">
+          <label class="form-label" for="modalUsername">Username Minecraft</label>
+          <input class="form-input" type="text" id="modalUsername" placeholder="Masukkan username kamu" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Metode Pembayaran</label>
+          <select class="form-select" id="modalPayment">
+            <option value="">— Pilih metode —</option>
+            <option value="QRIS">📱 QRIS</option>
+            <option value="Transfer Bank">🏦 Transfer Bank</option>
+            <option value="GoPay">💚 GoPay</option>
+            <option value="OVO">💜 OVO</option>
+            <option value="Dana">🔵 Dana</option>
+            <option value="ShopeePay">🧡 ShopeePay</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Total Pembayaran</label>
+          <div class="form-input" style="color:var(--soracitu); font-weight:700; cursor:default;" id="modalPriceDisplay">—</div>
+        </div>
+
+        <button class="btn btn-soracitu btn-full btn-lg" style="margin-top:.5rem;" onclick="confirmBuyRank()">
+          🏙️ Konfirmasi Pembelian
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logo-icon">S</div>
+            <span class="footer-logo-text">SORA SERVER</span>
+          </a>
+          <p class="footer-desc">Minecraft Indonesia terbaik dengan dua dunia berbeda. Bergabunglah dengan komunitas kami yang terus berkembang sejak 2024.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="footer-social" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Server Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Server</h4>
+          <ul class="footer-links">
+            <li><a href="survival.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Survival Economy</a></li>
+            <li><a href="soracitu.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Sora City</a></li>
+            <li><a href="index.html#features" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Fitur Server</a></li>
+            <li><a href="index.html#stats" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Statistik</a></li>
+          </ul>
+        </div>
+
+        <!-- Akun Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Akun</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Login</a></li>
+            <li><a href="register.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Daftar</a></li>
+            <li><a href="dashboard.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Dashboard</a></li>
+            <li><a href="report.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Report</a></li>
+          </ul>
+        </div>
+
+        <!-- Info Column -->
+        <div class="footer-col footer-info">
+          <h4 class="footer-col-title">Info Server</h4>
+          <div class="footer-ip-box">
+            <span class="footer-ip-label">IP SERVER</span>
+            <span class="footer-ip-value">play.soraserver.id</span>
+            <button class="footer-ip-copy" id="footerCopyIpBtn" aria-label="Salin IP server">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+          <ul class="footer-info-list">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Versi: Java 1.20+</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Server: 24/7 Online</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Lokasi: Indonesia</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Sora Server. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-bottom-sep">·</span>
+          <a href="#" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ░░ TOAST CONTAINER ░░ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ░░ BACK TO TOP ░░ -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+
+
+  <!-- ░░ SCRIPTS ░░ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    /* ============================================================
+       SORACITU PAGE SCRIPT
+       ============================================================ */
+
+    const server = 'soracitu';
+
+    /* ── State ── */
+    let selectedCoins  = 0;
+    let selectedPrice  = 0;
+    let selectedMethod = '';
+
+    /* ── Page Loader ── */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('pageLoader');
+      if (loader) setTimeout(() => loader.classList.add('hidden'), 600);
+    });
+
+    /* ── Announcement Bar ── */
+    const closeAnn = document.getElementById('closeAnnouncement');
+    if (closeAnn) {
+      closeAnn.addEventListener('click', () => {
+        const bar = document.getElementById('announcementBar');
+        if (bar) bar.style.display = 'none';
+      });
+    }
+
+    /* ── Navbar scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    /* ── Hamburger / Mobile Menu ── */
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.classList.toggle('active', isOpen);
+      });
+    }
+
+    /* ── Back To Top ── */
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (btt) btt.classList.toggle('visible', window.scrollY > 400);
+    });
+    if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── Reveal on scroll ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Footer IP copy ── */
+    const footerCopyBtn = document.getElementById('footerCopyIpBtn');
+    if (footerCopyBtn) {
+      footerCopyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('play.soraserver.id').then(() => showToast('IP disalin!', 'success'));
+      });
+    }
+
+    /* ── Tabs ── */
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const target = document.getElementById(tab);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── Load server stats ── */
+    async function loadServerStats() {
+      try {
+        if (typeof supabase !== 'undefined') {
+          const { data } = await supabase
+            .from('server_stats')
+            .select('online_players')
+            .eq('server', server)
+            .single();
+          if (data) {
+            const el = document.getElementById('scOnline');
+            if (el) el.textContent = data.online_players;
+          }
+        }
+      } catch (e) {
+        const el = document.getElementById('scOnline');
+        if (el) el.textContent = '—';
+      }
+    }
+    loadServerStats();
+
+    /* ── Auth state (navAuthBtns) ── */
+    async function checkAuthState() {
+      try {
+        if (typeof supabase !== 'undefined') {
+          const { data: { session } } = await supabase.auth.getSession();
+          const navBtns = document.getElementById('navAuthBtns');
+          if (navBtns && session) {
+            navBtns.innerHTML = `
+              <a href="dashboard.html" class="btn btn-soracitu btn-sm">
+                <i class="fa-solid fa-gauge"></i> Dashboard
+              </a>`;
+          }
+        }
+      } catch (e) { /* silent */ }
+    }
+    checkAuthState();
+
+    /* ── Topup: Amount selection ── */
+    function selectAmount(el) {
+      document.querySelectorAll('.amount-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedCoins = parseInt(el.dataset.coins, 10);
+      selectedPrice = parseInt(el.dataset.price, 10);
+      updateSummary();
+    }
+
+    /* ── Topup: Payment selection ── */
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedMethod = el.dataset.method;
+      updateSummary();
+    }
+
+    /* ── Topup: Update summary ── */
+    function updateSummary() {
+      const username = document.getElementById('topupUsername')?.value.trim() || '—';
+      document.getElementById('summaryUsername').textContent = username || '—';
+      document.getElementById('summaryCoins').textContent    = selectedCoins ? selectedCoins.toLocaleString('id-ID') + ' Kota Coin' : '— Kota Coin';
+      document.getElementById('summaryMethod').textContent   = selectedMethod || '—';
+      document.getElementById('summaryPrice').textContent    = selectedPrice  ? 'Rp ' + selectedPrice.toLocaleString('id-ID') : 'Rp 0';
+    }
+
+    /* Live username update */
+    const topupUsernameInput = document.getElementById('topupUsername');
+    if (topupUsernameInput) topupUsernameInput.addEventListener('input', updateSummary);
+
+    /* ── Topup: Submit ── */
+    function submitTopup() {
+      const username = document.getElementById('topupUsername')?.value.trim();
+      if (!username)       { showToast('Masukkan username Minecraft kamu!', 'error'); return; }
+      if (!selectedCoins)  { showToast('Pilih jumlah Kota Coin terlebih dahulu!', 'error'); return; }
+      if (!selectedMethod) { showToast('Pilih metode pembayaran!', 'error'); return; }
+
+      const btn = document.getElementById('topupBtn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Memproses...'; }
+
+      setTimeout(() => {
+        showToast(`✅ Order topup ${selectedCoins.toLocaleString('id-ID')} Kota Coin untuk ${username} berhasil dibuat!`, 'success', 5000);
+        if (btn) { btn.disabled = false; btn.textContent = '💰 Beli Kota Coin'; }
+      }, 1500);
+    }
+
+    /* ── Buy Rank Modal ── */
+    const rankIcons = { pendatang: '🏠', warga: '🏪', pengusaha: '💰', konglomerat: '🏦' };
+
+    function openBuyRank(slug, name, price) {
+      document.getElementById('modalRankSlug').value      = slug;
+      document.getElementById('modalRankPrice').value     = price;
+      document.getElementById('modalRankIcon').textContent = rankIcons[slug] || '🏙️';
+      document.getElementById('modalRankTitle').textContent = 'Beli Rank ' + name;
+      document.getElementById('modalRankSub').textContent  = 'Lengkapi data berikut untuk membeli rank ' + name + ' di Sora City.';
+      document.getElementById('modalPriceDisplay').textContent = 'Rp ' + price.toLocaleString('id-ID');
+      document.getElementById('buyRankModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBuyRank() {
+      document.getElementById('buyRankModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* Close modal on overlay click */
+    document.getElementById('buyRankModal').addEventListener('click', function(e) {
+      if (e.target === this) closeBuyRank();
+    });
+    /* Close modal on Escape */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBuyRank(); });
+
+    function confirmBuyRank() {
+      const username = document.getElementById('modalUsername')?.value.trim();
+      const method   = document.getElementById('modalPayment')?.value;
+      const rankName = document.getElementById('modalRankTitle')?.textContent.replace('Beli Rank ', '');
+      const price    = document.getElementById('modalRankPrice')?.value;
+
+      if (!username) { showToast('Masukkan username Minecraft kamu!', 'error'); return; }
+      if (!method)   { showToast('Pilih metode pembayaran!', 'error'); return; }
+
+      closeBuyRank();
+      showToast(`✅ Pesanan rank ${rankName} untuk ${username} berhasil dibuat! Total: Rp ${parseInt(price,10).toLocaleString('id-ID')}`, 'success', 5000);
+    }
+
+    /* ── Toast ── */
+    function showToast(message, type = 'info', duration = 3500) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, duration);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,145 +1,519 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>4seasons entertaiment</title>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sora Server — Minecraft Indonesia terbaik dengan Survival Economy dan Sora City Roleplay. Bergabunglah dengan ribuan pemain sekarang!" />
+  <meta property="og:title" content="Sora Server — Minecraft Indonesia" />
+  <meta property="og:description" content="Minecraft Indonesia terbaik dengan dua dunia berbeda: Survival Economy dan Sora City Roleplay. Join sekarang di play.soraserver.id" />
+  <title>Sora Server — Minecraft Indonesia</title>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
-  <!-- Header -->
-  <section id="header">
-    <div class="header container">
-      <div class="nav-bar">
-        <div class="brand">
-          <a href="#hero">
-            <h1><span>4</span>seasons </h1>
-          </a>
+
+  <!-- ░░ PAGE LOADER ░░ -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader-inner">
+      <div class="page-loader-logo">SORA</div>
+      <div class="page-loader-bar">
+        <div class="page-loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ ANNOUNCEMENT BAR ░░ -->
+  <div class="announcement-bar" id="announcementBar">
+    <span class="announcement-text">
+      🔥 EVENT DOUBLE EXP aktif sekarang! Mainkan Survival Economy &amp; Sora City →
+    </span>
+    <button class="announcement-close" id="closeAnnouncement" aria-label="Tutup pengumuman">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+
+      <!-- Logo -->
+      <a class="navbar-logo" href="index.html">
+        <div class="navbar-logo-icon">S</div>
+        <span class="navbar-logo-text">SORA SERVER</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="navbar-links">
+        <li><a href="index.html" class="navbar-link active">Home</a></li>
+        <li><a href="#servers" class="navbar-link">Servers</a></li>
+        <li><a href="#features" class="navbar-link">Features</a></li>
+        <li><a href="#stats" class="navbar-link">Stats</a></li>
+        <li><a href="report.html" class="navbar-link">Report</a></li>
+      </ul>
+
+      <!-- Nav Action Buttons -->
+      <div class="navbar-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="register.html" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-user-plus"></i> Daftar
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-menu-links">
+        <li><a href="index.html" class="mobile-menu-link">🏠 Home</a></li>
+        <li><a href="#servers" class="mobile-menu-link">🌍 Servers</a></li>
+        <li><a href="#features" class="mobile-menu-link">✨ Features</a></li>
+        <li><a href="#stats" class="mobile-menu-link">📊 Stats</a></li>
+        <li><a href="report.html" class="mobile-menu-link">🚩 Report</a></li>
+      </ul>
+      <div class="mobile-menu-actions">
+        <a href="login.html" class="btn btn-ghost btn-block">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="register.html" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-user-plus"></i> Daftar Gratis
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="hero">
+    <!-- Background Decorations -->
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        ⭐ Server Online &amp; Ready
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line">Selamat Datang di</span>
+        <span class="line gradient-text">SORA SERVER</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Minecraft Indonesia terbaik dengan dua dunia berbeda. Nikmati petualangan ekonomi di Survival atau kehidupan kota modern di Sora City — pilihan ada di tanganmu!
+      </p>
+
+      <!-- IP Box -->
+      <div class="hero-ip-box">
+        <span class="hero-ip-label">IP SERVER</span>
+        <span class="hero-ip-value" id="heroIpValue">play.soraserver.id</span>
+        <button class="hero-ip-copy" id="copyIpBtn" aria-label="Salin IP server">
+          <i class="fa-regular fa-copy"></i>
+        </button>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="hero-actions">
+        <a href="#servers" class="btn btn-primary btn-lg">
+          🧭 Jelajahi Server
+        </a>
+        <a href="register.html" class="btn btn-outline btn-lg">
+          👤 Daftar Sekarang
+        </a>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value">1,247+</span>
+          <span class="hero-stat-label">Total Player</span>
         </div>
-        <div class="nav-list">
-          <div class="hamburger">
-            <div class="bar"></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="heroOnlineCount">—</span>
+          <span class="hero-stat-label">Online Sekarang</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">365</span>
+          <span class="hero-stat-label">Hari Berjalan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Hint -->
+    <div class="scroll-hint">
+      <div class="scroll-hint-mouse">
+        <div class="scroll-hint-wheel"></div>
+      </div>
+      <span class="scroll-hint-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ░░ SERVERS SECTION ░░ -->
+  <section id="servers" class="servers-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Pilih Duniamu</span>
+        <h2 class="section-title">Dua Server, <span class="gradient-text">Satu Komunitas</span></h2>
+        <p class="section-sub">Dua pengalaman bermain yang unik, satu komunitas yang solid. Pilih server yang sesuai gaya bermainmu atau jelajahi keduanya!</p>
+      </div>
+
+      <div class="servers-grid">
+
+        <!-- Survival Card -->
+        <div class="server-card survival reveal">
+          <div class="server-card-banner">
+            <img src="img/img-1.png" alt="Survival Economy Banner" loading="lazy" />
+            <div class="server-card-overlay"></div>
+            <span class="server-card-type">SURVIVAL</span>
+            <span class="server-card-status online">
+              <span class="status-dot"></span> Online
+            </span>
           </div>
-          <ul>
-            <li><a href="#hero" data-after="Home">Home</a></li>
-            <li><a href="#services" data-after="Service">Services</a></li>
-            <li><a href="#about" data-after="About">About</a></li>
-            <li><a href="#contact" data-after="Contact">Contact</a></li>
+          <div class="server-card-body">
+            <h3 class="server-card-title">🌲 Survival Economy</h3>
+            <p class="server-card-desc">Bangun kerajaan ekonomimu, klaim lahan, kerjakan job, dan jadilah pemain terkaya di server! Mode survival yang diperkaya dengan sistem ekonomi mendalam.</p>
+            <div class="server-card-meta">
+              <div class="server-meta-item">
+                <i class="fa-solid fa-server"></i>
+                <span>play.soraserver.id</span>
+              </div>
+              <div class="server-meta-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Max 200 Players</span>
+              </div>
+              <div class="server-meta-item">
+                <i class="fa-solid fa-clock"></i>
+                <span>Uptime 99.9%</span>
+              </div>
+            </div>
+            <div class="server-card-tags">
+              <span class="server-tag">Ekonomi</span>
+              <span class="server-tag">Land Claim</span>
+              <span class="server-tag">Jobs</span>
+              <span class="server-tag">PvP Optional</span>
+            </div>
+          </div>
+          <div class="server-card-footer">
+            <a href="survival.html" class="btn btn-primary btn-sm">🏪 Beli Rank</a>
+            <a href="survival.html#topup" class="btn btn-outline btn-sm">💰 Topup Coin</a>
+          </div>
+        </div>
+
+        <!-- Sora City Card -->
+        <div class="server-card soracitu reveal">
+          <div class="server-card-banner">
+            <img src="img/img-2.png" alt="Sora City Banner" loading="lazy" />
+            <div class="server-card-overlay"></div>
+            <span class="server-card-type">ROLEPLAY CITY</span>
+            <span class="server-card-status online">
+              <span class="status-dot"></span> Online
+            </span>
+          </div>
+          <div class="server-card-body">
+            <h3 class="server-card-title">🏙️ Sora City</h3>
+            <p class="server-card-desc">Hidupkan karakter impianmu di kota modern Sora City! Beli properti, jalankan bisnis, kendarai kendaraan, dan bangun kehidupan kota yang seru bersama komunitas.</p>
+            <div class="server-card-meta">
+              <div class="server-meta-item">
+                <i class="fa-solid fa-server"></i>
+                <span>play.soraserver.id</span>
+              </div>
+              <div class="server-meta-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Max 150 Players</span>
+              </div>
+              <div class="server-meta-item">
+                <i class="fa-solid fa-clock"></i>
+                <span>Uptime 99.9%</span>
+              </div>
+            </div>
+            <div class="server-card-tags">
+              <span class="server-tag">Roleplay</span>
+              <span class="server-tag">Properti</span>
+              <span class="server-tag">Bisnis</span>
+              <span class="server-tag">Kendaraan</span>
+            </div>
+          </div>
+          <div class="server-card-footer">
+            <a href="soracitu.html" class="btn btn-primary btn-sm">🏙️ Jelajahi Kota</a>
+            <a href="soracitu.html#topup" class="btn btn-outline btn-sm">💰 Topup Coin</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURES SECTION ░░ -->
+  <section id="features" class="features-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Kenapa Sora?</span>
+        <h2 class="section-title">Fitur <span class="gradient-text">Unggulan</span></h2>
+        <p class="section-sub">Kami menghadirkan pengalaman Minecraft terbaik dengan fitur-fitur yang dirancang untuk kenyamanan dan kesenangan bermain.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card reveal normal">
+          <div class="feature-card-icon">🛡️</div>
+          <h3 class="feature-card-title">Anti Cheat &amp; Anti Grief</h3>
+          <p class="feature-card-desc">Sistem perlindungan canggih memastikan pengalaman bermain yang adil dan aman. Tidak ada cheat, tidak ada griefing.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card-icon">⚡</div>
+          <h3 class="feature-card-title">Server 24/7 No Lag</h3>
+          <p class="feature-card-desc">Server berjalan 24 jam sehari, 7 hari seminggu dengan hardware premium. Nikmati gameplay tanpa lag dan downtime minimal.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card-icon">👥</div>
+          <h3 class="feature-card-title">Komunitas Aktif</h3>
+          <p class="feature-card-desc">Bergabunglah dengan ribuan pemain aktif yang ramah dan supportif. Event komunitas rutin setiap minggu untuk semua member.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card-icon">👑</div>
+          <h3 class="feature-card-title">Sistem Rank Premium</h3>
+          <p class="feature-card-desc">Tingkatkan pengalamanmu dengan sistem rank eksklusif. Setiap rank memberikan keuntungan dan privilege yang berbeda.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card-icon">💰</div>
+          <h3 class="feature-card-title">Ekonomi Seimbang</h3>
+          <p class="feature-card-desc">Sistem ekonomi yang dirancang cermat untuk keseimbangan antara pemain baru dan veteran. Fair play untuk semua.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-card-icon">🎧</div>
+          <h3 class="feature-card-title">Support Responsif</h3>
+          <p class="feature-card-desc">Tim support kami siap membantu 24/7 melalui Discord. Pertanyaan dan laporan masalah ditangani dengan cepat dan profesional.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ STATS SECTION ░░ -->
+  <section id="stats" class="stats-section section">
+    <div class="container">
+      <div class="stats-grid">
+
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="1247">0</span>
+          <span class="stat-suffix">+</span>
+          <span class="stat-label">Total Pemain</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="365">0</span>
+          <span class="stat-label">Hari Berjalan</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="89">0</span>
+          <span class="stat-label">Event Selesai</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="4.9">0</span>
+          <span class="stat-label">Rating Pemain</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ STEPS / HOW TO JOIN SECTION ░░ -->
+  <section id="join" class="steps-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Mulai Main</span>
+        <h2 class="section-title">Cara <span class="gradient-text">Bergabung</span></h2>
+        <p class="section-sub">Hanya butuh 4 langkah mudah untuk mulai bermain di Sora Server. Gratis dan cepat!</p>
+      </div>
+
+      <div class="steps-track">
+
+        <div class="step-card reveal">
+          <div class="step-number">01</div>
+          <div class="step-icon">👤</div>
+          <h3 class="step-title">Buat Akun</h3>
+          <p class="step-desc">Daftar akun gratis di website kami. Isi username dan email, selesai dalam hitungan detik.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-number">02</div>
+          <div class="step-icon">🎮</div>
+          <h3 class="step-title">Buka Minecraft</h3>
+          <p class="step-desc">Buka Minecraft Java Edition versi terbaru di perangkatmu. Pastikan sudah login ke akun Mojang/Microsoft.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-number">03</div>
+          <div class="step-icon">🖥️</div>
+          <h3 class="step-title">Add Server</h3>
+          <p class="step-desc">Masuk ke Multiplayer, klik Add Server, dan masukkan IP: <strong>play.soraserver.id</strong> lalu simpan.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-number">04</div>
+          <div class="step-icon">🚀</div>
+          <h3 class="step-title">Main!</h3>
+          <p class="step-desc">Pilih server favoritmu — Survival Economy atau Sora City — dan mulai petualanganmu bersama ribuan pemain!</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CTA SECTION ░░ -->
+  <section class="cta-section section">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-deco-1">💎</div>
+        <div class="cta-deco-2">⚔️</div>
+        <div class="cta-deco-3">💎</div>
+
+        <div class="cta-content">
+          <h2 class="cta-title">Siap Memulai Petualanganmu?</h2>
+          <p class="cta-sub">Bergabunglah dengan lebih dari 1.200 pemain aktif di Sora Server. Daftar gratis sekarang dan dapatkan bonus item untuk pemain baru!</p>
+          <div class="cta-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-user-plus"></i> Daftar Gratis
+            </a>
+            <a href="#" class="btn btn-discord btn-lg">
+              <i class="fa-brands fa-discord"></i> Join Discord
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logo-icon">S</div>
+            <span class="footer-logo-text">SORA SERVER</span>
+          </a>
+          <p class="footer-desc">Minecraft Indonesia terbaik dengan dua dunia berbeda. Bergabunglah dengan komunitas kami yang terus berkembang sejak 2024.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="footer-social" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Server Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Server</h4>
+          <ul class="footer-links">
+            <li><a href="survival.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Survival Economy</a></li>
+            <li><a href="soracitu.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Sora City</a></li>
+            <li><a href="#features" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Fitur Server</a></li>
+            <li><a href="#stats" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Statistik</a></li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Header -->
 
+        <!-- Akun Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Akun</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Login</a></li>
+            <li><a href="register.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Daftar</a></li>
+            <li><a href="dashboard.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Dashboard</a></li>
+            <li><a href="report.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Report</a></li>
+          </ul>
+        </div>
 
-  <!-- Hero Section  -->
-  <section id="hero">
-    <div class="hero container">
-      <div>
-        <h1>Hello, <span></span></h1>
-        <h1>Our Company Is <span></span></h1>
-        <h1>4seasons entertaiment <span></span></h1>
-        <a href="#services" type="button" class="cta">Our Service</a>
-      </div>
-    </div>
-  </section>
-  <!-- End Hero Section  -->
-
-  <!-- Service Section -->
-  <section id="services">
-    <div class="services container">
-      <div class="service-top">
-        <h1 class="section-title">Serv<span>i</span>ces</h1>
-        <p>Kami selalu berusaha untuk memberikan solusi, ide-ide kreatif konsep inovativ dan bekerja profesional dengan mengutamakan terpenuhinya kebutuhan serta kepuasan klien sebagai mitra bisnis</p>
-      </div>
-      <div class="service-bottom">
-        <div class="service-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
-          <h2>Team Building/Outbond</h2>
-          <p>Melalui kegiatan ini, kami membantu perusahaan dan organisasi menciptakan tim yang solid, produktif, dan selaras dengan tujuan bersama. Didukung oleh fasilitator professional dan lokasi yang mendukung suasana alam, kami memastikan setiap peserta mendapatkan pengalaman yang tak akan terlupakan</p>
-        </div>
-        <div class="service-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
-          <h2>Company Event & Workshops</h2>
-          <p>4 Seasons adalah Event Organizer yang mengkhususkan diri dalam mengelola Company Event & Workshops untuk mendukung kebutuhan profesional perusahaan Anda. Kami hadir sebagai mitra terpercaya untuk menciptakan acara yang tidak hanya berkesan, tetapi juga mendukung produktivitas dan kolaborasi.</p>
-        </div>
-        <div class="service-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
-          <h2>Anniversary Company</h2>
-          <p>Kami adalah Event Organizer spesialis dalam merancang dan menyelenggarakan acara Anniversary Company yang profesional dan berkesan. Dengan pengalaman dan kreativitas tinggi, kami membantu perusahaan Anda merayakan momen penting ini secara elegan, penuh makna, dan sesuai dengan visi perusahaan Anda.</p>
-        </div>
-        <div class="service-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
-          <h2>Expo & Bazar</h2>
-          <p>Expo & Bazar adalah event organizer yang menghadirkan pengalaman pameran dan bazar yang menarik, kreatif, dan berkesan. Dengan fokus pada pengorganisasian acara yang profesional, kami menghubungkan para pelaku usaha, komunitas, dan konsumen dalam suatu wadah interaktif untuk memperluas jaringan, mempromosikan produk, serta menciptakan peluang bisnis.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Service Section -->
-  <!-- Projects Section -->
-  <section id="about">
-    <div class="about container">
-      <div class="col-left">
-        <h1 class="section-title">About <span>Company</span></h1>
-        <h2>Event Organizer</h2>
-        <p>4Seasons adalah Event Organizer profesional yang berdedikasi untuk membantu perusahaan menciptakan acara yang berkesan dan bermakna.
-           Kami mengkhususkan diri dalam menyelenggarakan Company Events dan Workshops, seperti Corporate Gathering, Team Building, Training, Product Launching, hingga Seminar.</p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- End About Section -->
-  <!-- Contact Section -->
-  <section id="contact">
-    <div class="contact container">
-      <div>
-        <h1 class="section-title">Contact <span>info</span></h1>
-      </div>
-      <div class="contact-items">
-        <div class="contact-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/phone.png" /></div>
-          <div class="contact-info">
-            <h1>Phone Number</h1>
-            <h2>Direktur</h2>
-            <h2>Leni Herawati S. I. Kom</h2>
-            <h2>+62 813 7807 2727</h2>
+        <!-- Info Column -->
+        <div class="footer-col footer-info">
+          <h4 class="footer-col-title">Info Server</h4>
+          <div class="footer-ip-box">
+            <span class="footer-ip-label">IP SERVER</span>
+            <span class="footer-ip-value">play.soraserver.id</span>
+            <button class="footer-ip-copy" id="footerCopyIpBtn" aria-label="Salin IP server">
+              <i class="fa-regular fa-copy"></i>
+            </button>
           </div>
+          <ul class="footer-info-list">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Versi: Java 1.20+</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Server: 24/7 Online</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Lokasi: Indonesia</span>
+            </li>
+          </ul>
         </div>
-        <div class="contact-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/new-post.png" /></div>
-          <div class="contact-info">
-            <h1>Email</h1>
-            <h2>4.seasons.pku@gmail.com</h2>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/map-marker.png" /></div>
-          <div class="contact-info">
-            <h1>Address</h1>
-            <h2>Jl. Purwodadi, Kel. Sidomulyo Barat, Kec Tuahmadani. Pekanbaru - Riau</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Contact Section -->
 
-  <!-- Footer -->
-  <section id="footer">
-    <div class="footer container">
-      <div class="brand">
-        <h1><span>4</span>seasons <span>e</span>ntertaiment</h1>
       </div>
-      <h2>Event Organizer Solution</h2>
-      <p>Copyright © 2025 4seasons entertaiment. All rights reserved</p>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Sora Server. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-bottom-sep">·</span>
+          <a href="#" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
     </div>
-  </section>
-  <!-- End Footer -->
-  <script src="./app.js"></script>
+  </footer>
+
+  <!-- ░░ TOAST CONTAINER ░░ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ░░ BACK TO TOP ░░ -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ░░ SCRIPTS ░░ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+
 </body>
-
 </html>

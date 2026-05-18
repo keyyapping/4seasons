@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daftar — Sora Server</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Make auth-card wider for register */
+    .auth-card { max-width: 520px; }
+  </style>
+</head>
+<body class="auth-page">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-grid" style="position:fixed;inset:0;z-index:0;"></div>
+
+  <div class="auth-card">
+    <a href="index.html" class="auth-logo">
+      <div class="auth-logo-icon">S</div>
+      <span class="auth-logo-text">SORA SERVER</span>
+    </a>
+
+    <h1 class="auth-title">Buat Akun</h1>
+    <p class="auth-sub">Daftar gratis dan mulai petualanganmu di Sora Server!</p>
+
+    <div class="alert alert-danger" id="regError" style="display:none;margin-bottom:1.5rem;">
+      <i class="fa-solid fa-circle-xmark alert-icon"></i>
+      <span id="regErrorMsg"></span>
+    </div>
+
+    <div class="alert alert-success" id="regSuccess" style="display:none;margin-bottom:1.5rem;">
+      <i class="fa-solid fa-circle-check alert-icon"></i>
+      <span>Pendaftaran berhasil! Cek email kamu untuk verifikasi.</span>
+    </div>
+
+    <form id="registerForm" novalidate>
+      <!-- Username & Minecraft username side by side -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label" for="regUsername">Username</label>
+          <div class="form-input-wrap">
+            <i class="fa-solid fa-user form-input-icon"></i>
+            <input type="text" id="regUsername" class="form-input has-icon" placeholder="SoraPlayer" required minlength="3" maxlength="20" autocomplete="username" />
+          </div>
+          <span class="form-helper">3–20 karakter</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="regMcUsername">Username Minecraft</label>
+          <div class="form-input-wrap">
+            <i class="fa-solid fa-cube form-input-icon"></i>
+            <input type="text" id="regMcUsername" class="form-input has-icon" placeholder="Steve_123" required minlength="3" maxlength="16" />
+          </div>
+          <span class="form-helper">Sesuai akun MC kamu</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regEmail">Email</label>
+        <div class="form-input-wrap">
+          <i class="fa-solid fa-envelope form-input-icon"></i>
+          <input type="email" id="regEmail" class="form-input has-icon" placeholder="email@kamu.com" required autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regPassword">Password</label>
+        <div class="form-input-wrap">
+          <i class="fa-solid fa-lock form-input-icon"></i>
+          <input type="password" id="regPassword" class="form-input has-icon has-action" placeholder="Min 8 karakter" required minlength="8" autocomplete="new-password" />
+          <button type="button" class="form-input-action" id="toggleRegPassword" tabindex="-1">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <!-- Password strength bar -->
+        <div class="progress-bar-wrap" style="margin-top:0.5rem;" id="strengthWrap" hidden>
+          <div class="progress-bar-fill" id="strengthBar" style="width:0%;transition:width 0.3s ease, background 0.3s ease;"></div>
+        </div>
+        <span class="form-helper" id="strengthLabel"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="regPasswordConfirm">Konfirmasi Password</label>
+        <div class="form-input-wrap">
+          <i class="fa-solid fa-lock form-input-icon"></i>
+          <input type="password" id="regPasswordConfirm" class="form-input has-icon" placeholder="Ulangi password" required autocomplete="new-password" />
+        </div>
+        <span class="form-error-msg" id="confirmError" style="display:none;"><i class="fa-solid fa-circle-exclamation"></i> Password tidak cocok</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-check">
+          <input type="checkbox" id="agreeTerms" required />
+          Saya setuju dengan <a href="#" class="form-link">Syarat &amp; Ketentuan</a> dan <a href="#" class="form-link">Kebijakan Privasi</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="registerBtn">
+        <i class="fa-solid fa-user-plus"></i> Buat Akun Gratis
+      </button>
+    </form>
+
+    <div class="auth-footer" style="margin-top:1.5rem;">
+      Sudah punya akun? <a href="login.html">Login →</a>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await getCurrentUser().catch(() => null);
+      if (user) window.location.href = 'dashboard.html';
+
+      // Toggle password
+      document.getElementById('toggleRegPassword').addEventListener('click', () => {
+        const inp = document.getElementById('regPassword');
+        const ico = document.getElementById('toggleRegPassword').querySelector('i');
+        inp.type = inp.type === 'password' ? 'text' : 'password';
+        ico.className = inp.type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
+      });
+
+      // Password strength
+      document.getElementById('regPassword').addEventListener('input', (e) => {
+        const val = e.target.value;
+        const strengthWrap = document.getElementById('strengthWrap');
+        const bar = document.getElementById('strengthBar');
+        const label = document.getElementById('strengthLabel');
+        if (!val) { strengthWrap.hidden = true; return; }
+        strengthWrap.hidden = false;
+        let score = 0;
+        if (val.length >= 8) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+        const levels = [
+          { pct: 25, color: 'var(--danger)', text: 'Sangat lemah' },
+          { pct: 50, color: 'var(--gold)', text: 'Lemah' },
+          { pct: 75, color: 'var(--survival)', text: 'Cukup kuat' },
+          { pct: 100, color: 'var(--survival-dark)', text: 'Kuat!' },
+        ];
+        const lvl = levels[score - 1] || levels[0];
+        bar.style.width = lvl.pct + '%';
+        bar.style.background = lvl.color;
+        label.textContent = lvl.text;
+        label.style.color = lvl.color;
+      });
+
+      // Confirm password
+      document.getElementById('regPasswordConfirm').addEventListener('input', () => {
+        const p1 = document.getElementById('regPassword').value;
+        const p2 = document.getElementById('regPasswordConfirm').value;
+        const err = document.getElementById('confirmError');
+        err.style.display = (p2 && p1 !== p2) ? 'flex' : 'none';
+      });
+
+      // Form submit
+      const form = document.getElementById('registerForm');
+      const btn = document.getElementById('registerBtn');
+      const errBox = document.getElementById('regError');
+      const errMsg = document.getElementById('regErrorMsg');
+      const successBox = document.getElementById('regSuccess');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('regUsername').value.trim();
+        const mcUsername = document.getElementById('regMcUsername').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regPasswordConfirm').value;
+        const agreed = document.getElementById('agreeTerms').checked;
+
+        if (!agreed) { showToast('Setujui dulu syarat & ketentuan!', 'warning'); return; }
+        if (password !== confirm) { showToast('Password tidak cocok!', 'error'); return; }
+        if (password.length < 8) { showToast('Password minimal 8 karakter!', 'warning'); return; }
+
+        setLoading(btn, true);
+        errBox.style.display = 'none';
+        successBox.style.display = 'none';
+
+        try {
+          await signUp(email, password, username, mcUsername);
+          successBox.style.display = 'flex';
+          form.reset();
+          showToast('Pendaftaran berhasil! Cek email untuk verifikasi.', 'success');
+          setTimeout(() => window.location.href = 'login.html', 3000);
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.style.display = 'flex';
+        } finally {
+          setLoading(btn, false);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

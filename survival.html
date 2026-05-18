@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Survival Economy Sora Server — Beli rank premium dan topup coin untuk pengalaman bermain terbaik!" />
+  <title>Survival Economy — Rank &amp; Topup | Sora Server</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-container">
+
+      <!-- Logo -->
+      <a class="navbar-logo" href="index.html">
+        <div class="navbar-logo-icon">S</div>
+        <span class="navbar-logo-text">SORA SERVER</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="navbar-links">
+        <li><a href="index.html" class="navbar-link">Home</a></li>
+        <li><a href="index.html#servers" class="navbar-link">Servers</a></li>
+        <li><a href="index.html#features" class="navbar-link">Features</a></li>
+        <li><a href="report.html" class="navbar-link">Report</a></li>
+        <li>
+          <a href="survival.html" class="navbar-link nav-badge survival active">🌲 Survival</a>
+        </li>
+        <li>
+          <a href="soracitu.html" class="navbar-link nav-badge">🏙️ Sora City</a>
+        </li>
+      </ul>
+
+      <!-- Nav Action Buttons -->
+      <div class="navbar-actions" id="navAuthBtns">
+        <a href="login.html" class="btn btn-ghost btn-sm">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="dashboard.html" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="navbar-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-menu-links">
+        <li><a href="index.html" class="mobile-menu-link">🏠 Home</a></li>
+        <li><a href="index.html#servers" class="mobile-menu-link">🌍 Servers</a></li>
+        <li><a href="index.html#features" class="mobile-menu-link">✨ Features</a></li>
+        <li><a href="report.html" class="mobile-menu-link">🚩 Report</a></li>
+        <li><a href="survival.html" class="mobile-menu-link">🌲 Survival</a></li>
+        <li><a href="soracitu.html" class="mobile-menu-link">🏙️ Sora City</a></li>
+      </ul>
+      <div class="mobile-menu-actions">
+        <a href="login.html" class="btn btn-ghost btn-block">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+        <a href="dashboard.html" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- ░░ PAGE HERO ░░ -->
+  <section class="page-hero survival-hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-grid"></div>
+
+    <div class="page-hero-content">
+      <!-- Eyebrow -->
+      <div class="page-hero-eyebrow">
+        <span class="section-tag survival">🌲 SURVIVAL ECONOMY</span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="page-hero-title">
+        <span class="gradient-text-survival">Survival Economy</span><br/>Rank &amp; Topup Store
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="page-hero-subtitle">
+        Tingkatkan pengalaman bermainmu dengan rank premium. Nikmati benefit exclusive dan dominasi server!
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="page-hero-actions">
+        <a href="#ranks" class="btn btn-survival btn-lg" onclick="event.preventDefault();document.getElementById('ranks').scrollIntoView({behavior:'smooth'})">
+          👑 Lihat Rank
+        </a>
+        <a href="#topup" class="btn btn-outline btn-lg" onclick="event.preventDefault();document.getElementById('topup').scrollIntoView({behavior:'smooth'})">
+          💰 Topup Coin
+        </a>
+      </div>
+
+      <!-- Server Stats -->
+      <div class="server-stats-row">
+        <div class="server-stat-item">
+          <span class="server-stat-label">Online Players</span>
+          <span class="server-stat-value" id="survOnline">...</span>
+        </div>
+        <div class="server-stat-divider"></div>
+        <div class="server-stat-item">
+          <span class="server-stat-label">Max Players</span>
+          <span class="server-stat-value">200</span>
+        </div>
+        <div class="server-stat-divider"></div>
+        <div class="server-stat-item">
+          <span class="server-stat-label">Version</span>
+          <span class="server-stat-value">1.20.x</span>
+        </div>
+        <div class="server-stat-divider"></div>
+        <div class="server-stat-item">
+          <span class="server-stat-label">Uptime</span>
+          <span class="server-stat-value">99.9%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ░░ TABS ░░ -->
+  <div class="container" style="padding-top:2rem;">
+    <div class="tabs" style="max-width:300px;">
+      <div class="tab-item active survival" data-tab="ranks" onclick="switchTab('ranks')">👑 Beli Rank</div>
+      <div class="tab-item" data-tab="topup" onclick="switchTab('topup')">💰 Topup Coin</div>
+    </div>
+  </div>
+
+
+
+  <!-- ░░ RANKS SECTION ░░ -->
+  <section id="ranks" class="ranks-section section">
+    <div class="container">
+
+      <!-- Section Header -->
+      <div class="section-header">
+        <span class="section-tag tag-survival">👑 RANK STORE</span>
+        <h2 class="section-title">Pilih Rank <span class="gradient-text-survival">Kamu</span></h2>
+        <p class="section-sub">Dapatkan keuntungan eksklusif dengan rank premium kami. Bayar sekali, nikmati selamanya!</p>
+      </div>
+
+      <!-- Login required alert -->
+      <div class="alert alert-info login-required" style="max-width:800px;margin:0 auto 2rem;">
+        <i class="fa-solid fa-circle-info alert-icon"></i>
+        <span>Kamu harus <a href="login.html"><strong>login</strong></a> terlebih dahulu untuk membeli rank.</span>
+      </div>
+
+      <!-- Ranks Grid — populated by JS / fallback static -->
+      <div class="ranks-grid" id="ranksGrid">
+
+        <!-- VIP -->
+        <div class="rank-card reveal" data-rank="vip" data-rank-id="vip">
+          <div class="rank-icon">⭐</div>
+          <div class="rank-name">VIP</div>
+          <div class="rank-price">Rp 25.000</div>
+          <div class="rank-price-sub">Bayar sekali, selamanya</div>
+          <ul class="rank-perks">
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Kit VIP tiap login</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/sethome x3</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Warna nama hijau</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Priority join</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/fly di spawn</li>
+          </ul>
+          <button class="btn btn-survival btn-full" onclick="openBuyRank('vip', 'VIP', 25000)">
+            <i class="fa-solid fa-shopping-cart"></i> Beli Sekarang
+          </button>
+        </div>
+
+        <!-- VIP+ -->
+        <div class="rank-card reveal" data-rank="vip+" data-rank-id="vip+">
+          <div class="rank-badge">POPULER</div>
+          <div class="rank-icon">💎</div>
+          <div class="rank-name">VIP+</div>
+          <div class="rank-price">Rp 50.000</div>
+          <div class="rank-price-sub">Bayar sekali, selamanya</div>
+          <ul class="rank-perks">
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>All VIP +</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/sethome x5</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/hat</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Particle effects</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/nick command</li>
+          </ul>
+          <button class="btn btn-survival btn-full" onclick="openBuyRank('vip+', 'VIP+', 50000)">
+            <i class="fa-solid fa-shopping-cart"></i> Beli Sekarang
+          </button>
+        </div>
+
+        <!-- MVP -->
+        <div class="rank-card reveal" data-rank="mvp" data-rank-id="mvp">
+          <div class="rank-icon">🔥</div>
+          <div class="rank-name">MVP</div>
+          <div class="rank-price">Rp 100.000</div>
+          <div class="rank-price-sub">Bayar sekali, selamanya</div>
+          <ul class="rank-perks">
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>All VIP+ +</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/fly everywhere</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Custom join msg</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>/sethome x10</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Prefix MVP</li>
+          </ul>
+          <button class="btn btn-survival btn-full" onclick="openBuyRank('mvp', 'MVP', 100000)">
+            <i class="fa-solid fa-shopping-cart"></i> Beli Sekarang
+          </button>
+        </div>
+
+        <!-- MVP+ -->
+        <div class="rank-card reveal" data-rank="mvp+" data-rank-id="mvp+">
+          <div class="rank-icon">👑</div>
+          <div class="rank-name">MVP+</div>
+          <div class="rank-price">Rp 175.000</div>
+          <div class="rank-price-sub">Bayar sekali, selamanya</div>
+          <ul class="rank-perks">
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>All MVP +</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Unlimited /sethome</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Semua fitur</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Custom prefix</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Discord role</li>
+            <li class="rank-perk"><span class="rank-perk-icon"><i class="fa-solid fa-check"></i></span>Early access</li>
+          </ul>
+          <button class="btn btn-survival btn-full" onclick="openBuyRank('mvp+', 'MVP+', 175000)">
+            <i class="fa-solid fa-shopping-cart"></i> Beli Sekarang
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ░░ TOPUP SECTION ░░ -->
+  <section id="topup" class="topup-section section">
+    <div class="container">
+
+      <!-- Section Header -->
+      <div class="section-header">
+        <span class="section-tag tag-survival">💰 TOPUP COIN</span>
+        <h2 class="section-title">Topup Saldo <span class="gradient-text-survival">Survival</span></h2>
+      </div>
+
+      <div class="topup-card">
+        <div class="topup-card-header">
+          <h3 class="topup-card-title">Topup Survival Coin</h3>
+          <p class="topup-card-sub">Pilih nominal topup dan metode pembayaran yang kamu inginkan</p>
+        </div>
+
+        <!-- Login required alert -->
+        <div class="alert alert-info login-required" style="margin-bottom:1.5rem;">
+          <i class="fa-solid fa-circle-info alert-icon"></i>
+          <span>Kamu harus <a href="login.html"><strong>login</strong></a> terlebih dahulu untuk melakukan topup.</span>
+        </div>
+
+        <!-- Minecraft username -->
+        <div class="form-group">
+          <label class="form-label" for="topupMcUsername">
+            <i class="fa-solid fa-gamepad"></i> Minecraft Username
+          </label>
+          <div class="form-input-wrap">
+            <i class="fa-solid fa-user form-input-icon"></i>
+            <input type="text" id="topupMcUsername" class="form-input has-icon" placeholder="Username Minecraft kamu" readonly />
+          </div>
+        </div>
+
+        <!-- Amount Grid -->
+        <div class="topup-section-label">Pilih Nominal</div>
+        <div class="amount-grid">
+
+          <div class="amount-option" data-amount="10000" data-coins="1000" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 10.000</div>
+            <div class="amount-bonus">1.000 Coin</div>
+          </div>
+
+          <div class="amount-option popular" data-amount="25000" data-coins="2500" onclick="selectAmount(this)">
+            <div class="amount-popular-badge">POPULER</div>
+            <div class="amount-value">Rp 25.000</div>
+            <div class="amount-bonus">2.500 Coin</div>
+          </div>
+
+          <div class="amount-option" data-amount="50000" data-coins="5000" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 50.000</div>
+            <div class="amount-bonus">5.000 Coin</div>
+          </div>
+
+          <div class="amount-option" data-amount="100000" data-coins="10500" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 100.000</div>
+            <div class="amount-bonus">10.500 Coin</div>
+            <div class="amount-bonus-tag">+Bonus 5%</div>
+          </div>
+
+          <div class="amount-option" data-amount="200000" data-coins="21500" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 200.000</div>
+            <div class="amount-bonus">21.500 Coin</div>
+            <div class="amount-bonus-tag">+Bonus 7.5%</div>
+          </div>
+
+          <div class="amount-option" data-amount="500000" data-coins="55000" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 500.000</div>
+            <div class="amount-bonus">55.000 Coin</div>
+            <div class="amount-bonus-tag">+Bonus 10%</div>
+          </div>
+
+          <div class="amount-option" data-amount="1000000" data-coins="115000" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 1 Juta</div>
+            <div class="amount-bonus">115.000 Coin</div>
+            <div class="amount-bonus-tag">+Bonus 15%</div>
+          </div>
+
+          <div class="amount-option" data-amount="2000000" data-coins="240000" onclick="selectAmount(this)">
+            <div class="amount-value">Rp 2 Juta</div>
+            <div class="amount-bonus">240.000 Coin</div>
+            <div class="amount-bonus-tag">+Bonus 20%</div>
+          </div>
+
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="topup-section-label" style="margin-top:1.5rem;">Metode Pembayaran</div>
+        <div class="payment-grid">
+
+          <div class="payment-option" data-method="qris" onclick="selectPayment(this)">
+            <div class="payment-option-icon">🏦</div>
+            <div class="payment-option-name">QRIS</div>
+            <div class="payment-option-badge">POPULER</div>
+          </div>
+
+          <div class="payment-option" data-method="gopay" onclick="selectPayment(this)">
+            <div class="payment-option-icon">💚</div>
+            <div class="payment-option-name">GoPay</div>
+          </div>
+
+          <div class="payment-option" data-method="ovo" onclick="selectPayment(this)">
+            <div class="payment-option-icon">💜</div>
+            <div class="payment-option-name">OVO</div>
+          </div>
+
+          <div class="payment-option" data-method="dana" onclick="selectPayment(this)">
+            <div class="payment-option-icon">💙</div>
+            <div class="payment-option-name">DANA</div>
+          </div>
+
+          <div class="payment-option" data-method="bca" onclick="selectPayment(this)">
+            <div class="payment-option-icon">🏛️</div>
+            <div class="payment-option-name">BCA</div>
+          </div>
+
+          <div class="payment-option" data-method="mandiri" onclick="selectPayment(this)">
+            <div class="payment-option-icon">🟡</div>
+            <div class="payment-option-name">Mandiri</div>
+          </div>
+
+        </div>
+
+        <!-- Order Summary -->
+        <div class="topup-summary">
+          <h4 class="topup-summary-title">Ringkasan Pesanan</h4>
+          <div class="topup-summary-row">
+            <span class="topup-summary-label">Nominal</span>
+            <span class="topup-summary-value" id="summaryAmount">—</span>
+          </div>
+          <div class="topup-summary-row">
+            <span class="topup-summary-label">Coin didapat</span>
+            <span class="topup-summary-value" id="summaryCoins">—</span>
+          </div>
+          <div class="topup-summary-row">
+            <span class="topup-summary-label">Bonus coin</span>
+            <span class="topup-summary-value highlight" id="summaryBonus">—</span>
+          </div>
+          <div class="topup-summary-row">
+            <span class="topup-summary-label">Metode</span>
+            <span class="topup-summary-value" id="summaryMethod">—</span>
+          </div>
+          <div class="topup-summary-divider"></div>
+          <div class="topup-summary-row total">
+            <span class="topup-summary-label">Total</span>
+            <span class="topup-summary-value" id="summaryTotal">—</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button id="topupBtn" class="btn btn-survival btn-full btn-lg" disabled style="margin-top:1.5rem;">
+          <i class="fa-solid fa-coins"></i> Proses Topup
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ░░ PURCHASE MODAL ░░ -->
+  <div id="purchaseModal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Konfirmasi Pembelian</h3>
+        <button class="modal-close" onclick="closePurchaseModal()" aria-label="Tutup modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-rank-info">
+          <div class="modal-rank-row">
+            <span class="modal-rank-label">Rank</span>
+            <span class="modal-rank-value" id="modalRankName">—</span>
+          </div>
+          <div class="modal-rank-row">
+            <span class="modal-rank-label">Harga</span>
+            <span class="modal-rank-value" id="modalRankPrice">—</span>
+          </div>
+        </div>
+
+        <div class="alert alert-info" style="margin:1rem 0;">
+          <i class="fa-solid fa-circle-info alert-icon"></i>
+          <span>Setelah konfirmasi, admin akan memverifikasi pembayaran dan mengaktifkan rank kamu dalam 1×24 jam.</span>
+        </div>
+
+        <!-- Payment Method Select -->
+        <div class="form-group">
+          <label class="form-label" for="modalPaymentMethod">Metode Pembayaran</label>
+          <div class="form-input-wrap">
+            <i class="fa-solid fa-credit-card form-input-icon"></i>
+            <select id="modalPaymentMethod" class="form-input has-icon">
+              <option value="">-- Pilih Metode --</option>
+              <option value="qris">🏦 QRIS</option>
+              <option value="gopay">💚 GoPay</option>
+              <option value="ovo">💜 OVO</option>
+              <option value="dana">💙 DANA</option>
+              <option value="bca">🏛️ BCA</option>
+              <option value="mandiri">🟡 Mandiri</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="confirmPurchaseBtn" class="btn btn-survival btn-full">
+          <i class="fa-solid fa-check"></i> Konfirmasi Pembelian
+        </button>
+        <button class="btn btn-ghost btn-full" onclick="closePurchaseModal()" style="margin-top:0.75rem;">
+          Batal
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="footer-logo">
+            <div class="footer-logo-icon">S</div>
+            <span class="footer-logo-text">SORA SERVER</span>
+          </a>
+          <p class="footer-desc">Minecraft Indonesia terbaik dengan dua dunia berbeda. Bergabunglah dengan komunitas kami yang terus berkembang sejak 2024.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="footer-social" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <!-- Server Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Server</h4>
+          <ul class="footer-links">
+            <li><a href="survival.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Survival Economy</a></li>
+            <li><a href="soracitu.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Sora City</a></li>
+            <li><a href="index.html#features" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Fitur Server</a></li>
+            <li><a href="index.html#stats" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Statistik</a></li>
+          </ul>
+        </div>
+
+        <!-- Akun Column -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Akun</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Login</a></li>
+            <li><a href="register.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Daftar</a></li>
+            <li><a href="dashboard.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Dashboard</a></li>
+            <li><a href="report.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Report</a></li>
+          </ul>
+        </div>
+
+        <!-- Info Column -->
+        <div class="footer-col footer-info">
+          <h4 class="footer-col-title">Info Server</h4>
+          <div class="footer-ip-box">
+            <span class="footer-ip-label">IP SERVER</span>
+            <span class="footer-ip-value">play.soraserver.id</span>
+            <button class="footer-ip-copy" id="footerCopyIpBtn" aria-label="Salin IP server">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+          <ul class="footer-info-list">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Versi: Java 1.20+</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Server: 24/7 Online</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Lokasi: Indonesia</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Sora Server. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-bottom-sep">·</span>
+          <a href="#" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ░░ TOAST CONTAINER ░░ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ░░ BACK TO TOP ░░ -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+
+
+  <!-- ░░ SCRIPTS ░░ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    let selectedAmount = null;
+    let selectedPayment = null;
+    let selectedRankId = null;
+    let currentUser = null;
+    let userProfile = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      currentUser = await getCurrentUser().catch(() => null);
+      if (currentUser) {
+        try {
+          userProfile = await getProfile(currentUser.id);
+          document.getElementById('topupMcUsername').value = userProfile.minecraft_username || '';
+          document.querySelectorAll('.login-required').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.logged-in-only').forEach(el => el.style.display = 'block');
+        } catch (e) {}
+      }
+
+      // Load online players from Supabase
+      try {
+        const { data } = await supabaseClient.from('server_stats').select('*').eq('server', 'survival').single();
+        if (data) document.getElementById('survOnline').textContent = data.online_players + ' Online';
+      } catch (e) {
+        document.getElementById('survOnline').textContent = '— Online';
+      }
+
+      // Update navbar auth
+      updateNavAuth(currentUser);
+    });
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active', 'survival'));
+      document.querySelector(`[data-tab="${tab}"]`).classList.add('active', 'survival');
+      if (tab === 'ranks') {
+        document.getElementById('ranks').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        document.getElementById('topup').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function selectAmount(el) {
+      document.querySelectorAll('.amount-option').forEach(a => a.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAmount = parseInt(el.dataset.amount);
+      const coins = parseInt(el.dataset.coins);
+      document.getElementById('summaryAmount').textContent = formatCurrency(selectedAmount);
+      document.getElementById('summaryCoins').textContent = coins.toLocaleString('id-ID') + ' Coin';
+      const bonus = coins - Math.floor(selectedAmount / 10);
+      document.getElementById('summaryBonus').textContent = bonus > 0 ? '+' + bonus.toLocaleString('id-ID') + ' Coin' : '—';
+      document.getElementById('summaryTotal').textContent = formatCurrency(selectedAmount);
+      updateTopupBtn();
+    }
+
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedPayment = el.dataset.method;
+      document.getElementById('summaryMethod').textContent = el.querySelector('.payment-option-name').textContent;
+      updateTopupBtn();
+    }
+
+    function updateTopupBtn() {
+      const btn = document.getElementById('topupBtn');
+      btn.disabled = !(selectedAmount && selectedPayment && currentUser);
+    }
+
+    function openBuyRank(rankSlug, rankName, price) {
+      if (!currentUser) {
+        showToast('Login dulu untuk membeli rank!', 'warning');
+        window.location.href = 'login.html';
+        return;
+      }
+      selectedRankId = rankSlug;
+      document.getElementById('modalRankName').textContent = rankName;
+      document.getElementById('modalRankPrice').textContent = formatCurrency(price);
+      document.getElementById('purchaseModal').style.display = 'flex';
+    }
+
+    function closePurchaseModal() {
+      document.getElementById('purchaseModal').style.display = 'none';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('purchaseModal').addEventListener('click', function (e) {
+      if (e.target === this) closePurchaseModal();
+    });
+
+    document.getElementById('topupBtn').addEventListener('click', async () => {
+      if (!currentUser || !selectedAmount || !selectedPayment) return;
+      const btn = document.getElementById('topupBtn');
+      setLoading(btn, true);
+      try {
+        await createTopup(currentUser.id, selectedAmount, 'survival', selectedPayment);
+        showToast('Topup berhasil diajukan! Admin akan memproses dalam 1×24 jam.', 'success');
+      } catch (e) {
+        showToast('Gagal: ' + e.message, 'error');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    document.getElementById('confirmPurchaseBtn').addEventListener('click', async () => {
+      const modalPayment = document.getElementById('modalPaymentMethod').value;
+      if (!modalPayment) { showToast('Pilih metode pembayaran!', 'warning'); return; }
+      const btn = document.getElementById('confirmPurchaseBtn');
+      setLoading(btn, true);
+      try {
+        await purchaseRank(currentUser.id, selectedRankId, 'survival', modalPayment);
+        closePurchaseModal();
+        showToast('Pembelian rank berhasil diajukan! Admin akan memproses segera.', 'success');
+      } catch (e) {
+        showToast('Gagal: ' + e.message, 'error');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    function updateNavAuth(user) {
+      const navBtns = document.getElementById('navAuthBtns');
+      if (user && navBtns) {
+        navBtns.innerHTML = `<a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-gauge"></i> Dashboard</a>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
