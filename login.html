@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Sora Server</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="auth-page">
+  <!-- Animated background orbs -->
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-grid" style="position:fixed;inset:0;z-index:0;"></div>
+
+  <div class="auth-card">
+    <!-- Logo -->
+    <a href="index.html" class="auth-logo">
+      <div class="auth-logo-icon">S</div>
+      <span class="auth-logo-text">SORA SERVER</span>
+    </a>
+
+    <h1 class="auth-title">Selamat Datang!</h1>
+    <p class="auth-sub">Login untuk akses rank, topup, dan fitur lainnya</p>
+
+    <!-- Alert error -->
+    <div class="alert alert-danger" id="loginError" style="display:none;margin-bottom:1.5rem;">
+      <i class="fa-solid fa-circle-xmark alert-icon"></i>
+      <span id="loginErrorMsg">Email atau password salah.</span>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">Email</label>
+        <div class="form-input-wrap">
+          <i class="fa-solid fa-envelope form-input-icon"></i>
+          <input type="email" id="loginEmail" class="form-input has-icon" placeholder="email@kamu.com" required autocomplete="email" />
+        </div>
+        <span class="form-error-msg" id="emailError" style="display:none;"><i class="fa-solid fa-circle-exclamation"></i> <span></span></span>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label" for="loginPassword">Password</label>
+        <div class="form-input-wrap">
+          <i class="fa-solid fa-lock form-input-icon"></i>
+          <input type="password" id="loginPassword" class="form-input has-icon has-action" placeholder="••••••••" required autocomplete="current-password" />
+          <button type="button" class="form-input-action" id="togglePassword" tabindex="-1" aria-label="Tampilkan password">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <span class="form-error-msg" id="passwordError" style="display:none;"><i class="fa-solid fa-circle-exclamation"></i> <span></span></span>
+      </div>
+
+      <!-- Remember + Forgot -->
+      <div class="form-row">
+        <label class="form-check">
+          <input type="checkbox" id="rememberMe" />
+          Ingat saya
+        </label>
+        <a href="#" class="form-link">Lupa password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="loginBtn">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+    </form>
+
+    <div class="auth-divider">
+      <div class="auth-divider-line"></div>
+      <span class="auth-divider-text">atau login dengan</span>
+      <div class="auth-divider-line"></div>
+    </div>
+
+    <a href="https://discord.gg/soraserver" class="btn btn-discord btn-full" style="margin-bottom:1rem;">
+      <i class="fa-brands fa-discord"></i> Login dengan Discord
+    </a>
+
+    <div class="auth-footer">
+      Belum punya akun? <a href="register.html">Daftar sekarang →</a>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Login page logic
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Redirect if already logged in
+      const user = await getCurrentUser().catch(() => null);
+      if (user) window.location.href = 'dashboard.html';
+
+      // Toggle password visibility
+      const toggleBtn = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('loginPassword');
+      toggleBtn.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        toggleBtn.querySelector('i').className = type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
+      });
+
+      // Form submit
+      const form = document.getElementById('loginForm');
+      const loginBtn = document.getElementById('loginBtn');
+      const errorBox = document.getElementById('loginError');
+      const errorMsg = document.getElementById('loginErrorMsg');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!email || !password) {
+          showToast('Isi email dan password dulu!', 'warning');
+          return;
+        }
+
+        setLoading(loginBtn, true);
+        errorBox.style.display = 'none';
+
+        try {
+          await signIn(email, password);
+          showToast('Login berhasil! Mengarahkan...', 'success');
+          setTimeout(() => window.location.href = 'dashboard.html', 1000);
+        } catch (err) {
+          errorMsg.textContent = err.message.includes('Invalid') ? 'Email atau password salah.' : err.message;
+          errorBox.style.display = 'flex';
+          setLoading(loginBtn, false);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

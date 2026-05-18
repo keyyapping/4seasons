@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Sora Server</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-layout">
+
+  <!-- ░░ SIDEBAR ░░ -->
+  <aside class="dashboard-sidebar" id="sidebar">
+
+    <!-- Sidebar Header / Logo -->
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <div class="sidebar-logo-icon">S</div>
+        <span class="sidebar-logo-text">SORA SERVER</span>
+      </a>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar-nav">
+
+      <!-- MENU UTAMA -->
+      <div class="sidebar-nav-section">
+        <span class="sidebar-nav-label">MENU UTAMA</span>
+        <ul class="sidebar-nav-list">
+          <li>
+            <a href="dashboard.html" class="sidebar-nav-link active">
+              <i class="fa-solid fa-house"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-nav-link">
+              <i class="fa-solid fa-user"></i>
+              <span>Profil Saya</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-nav-link">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span>Riwayat Transaksi</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SERVER -->
+      <div class="sidebar-nav-section">
+        <span class="sidebar-nav-label">SERVER</span>
+        <ul class="sidebar-nav-list">
+          <li>
+            <a href="survival.html" class="sidebar-nav-link survival-link">
+              <i class="fa-solid fa-tree"></i>
+              <span>Survival Economy</span>
+            </a>
+          </li>
+          <li>
+            <a href="soracitu.html" class="sidebar-nav-link soracitu-link">
+              <i class="fa-solid fa-city"></i>
+              <span>Sora City</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- LAINNYA -->
+      <div class="sidebar-nav-section">
+        <span class="sidebar-nav-label">LAINNYA</span>
+        <ul class="sidebar-nav-list">
+          <li>
+            <a href="report.html" class="sidebar-nav-link">
+              <i class="fa-solid fa-flag"></i>
+              <span>Lapor Player</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-nav-link">
+              <i class="fa-solid fa-gear"></i>
+              <span>Pengaturan</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="sidebar-nav-link">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>Bantuan</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+
+    <!-- Sidebar User Card -->
+    <div class="sidebar-user-card">
+      <div class="sidebar-user-avatar" id="sidebarAvatar">P</div>
+      <div class="sidebar-user-info">
+        <span class="sidebar-user-name">Player</span>
+        <span class="sidebar-user-role">Member</span>
+      </div>
+      <button class="sidebar-logout-btn" id="logoutBtn" aria-label="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ░░ SIDEBAR OVERLAY (mobile) ░░ -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ░░ MAIN ░░ -->
+  <main class="dashboard-main">
+
+    <!-- ░░ TOPBAR ░░ -->
+    <header class="dashboard-topbar">
+
+      <!-- Hamburger (mobile) -->
+      <button class="topbar-hamburger" id="sidebarToggle" aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Page Title -->
+      <span class="topbar-title" id="pageTitle">Dashboard</span>
+
+      <!-- Right: notifications + user -->
+      <div class="topbar-right">
+
+        <!-- Notification Bell -->
+        <button class="topbar-notif" aria-label="Notifikasi">
+          <i class="fa-solid fa-bell"></i>
+          <span class="topbar-notif-dot"></span>
+        </button>
+
+        <!-- User Dropdown -->
+        <div class="topbar-user">
+          <div class="topbar-user-avatar">P</div>
+          <span class="topbar-user-name" id="topbarUsername">Player</span>
+          <i class="fa-solid fa-chevron-down topbar-user-chevron"></i>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ░░ CONTENT ░░ -->
+    <div class="dashboard-content">
+
+      <!-- Welcome -->
+      <div class="dashboard-welcome">
+        <h2 class="dashboard-welcome-title">Halo, <span class="gradient-text" id="welcomeName">Player</span>! 👋</h2>
+        <p class="dashboard-welcome-sub">Selamat datang kembali di Sora Server Dashboard</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="dashboard-stats">
+
+        <!-- Saldo Survival -->
+        <div class="dash-stat-card primary">
+          <div class="dash-stat-icon">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div class="dash-stat-body">
+            <div class="dash-stat-value" id="balanceSurvival">Rp 0</div>
+            <div class="dash-stat-label">Saldo Survival</div>
+          </div>
+          <span class="dash-stat-change up">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </span>
+        </div>
+
+        <!-- Saldo Sora City -->
+        <div class="dash-stat-card soracitu">
+          <div class="dash-stat-icon">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <div class="dash-stat-body">
+            <div class="dash-stat-value" id="balanceSoracitu">Rp 0</div>
+            <div class="dash-stat-label">Saldo Sora City</div>
+          </div>
+          <span class="dash-stat-change">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </span>
+        </div>
+
+        <!-- Rank Survival -->
+        <div class="dash-stat-card survival">
+          <div class="dash-stat-icon">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div class="dash-stat-body">
+            <div class="dash-stat-value" id="survivalRank">Member</div>
+            <div class="dash-stat-label">Rank Survival</div>
+          </div>
+        </div>
+
+        <!-- Rank Sora City -->
+        <div class="dash-stat-card gold">
+          <div class="dash-stat-icon">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="dash-stat-body">
+            <div class="dash-stat-value" id="soracituRank">Warga</div>
+            <div class="dash-stat-label">Rank Sora City</div>
+          </div>
+        </div>
+
+      </div><!-- /.dashboard-stats -->
+
+      <!-- Quick Actions -->
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;">
+        <a href="survival.html" class="btn btn-survival">🌲 Beli Rank Survival</a>
+        <a href="soracitu.html" class="btn btn-soracitu">🏙️ Beli Rank Sora City</a>
+        <a href="survival.html#topup" class="btn btn-outline">💰 Topup Survival</a>
+        <a href="soracitu.html#topup" class="btn btn-outline">💰 Topup Sora City</a>
+        <a href="report.html" class="btn btn-danger">🚩 Lapor Player</a>
+      </div>
+
+      <!-- Dashboard Grid: Table + Profile -->
+      <div class="dashboard-grid">
+
+        <!-- Transaction Table -->
+        <div class="dashboard-table-card">
+          <div class="card-header">
+            <h3 class="card-title">Riwayat Transaksi</h3>
+            <span class="badge badge-primary" id="txCount">0</span>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Tipe</th>
+                    <th>Server</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="txTableBody">
+                  <!-- empty state -->
+                  <tr>
+                    <td colspan="5">
+                      <div class="empty-state">
+                        <div class="empty-state-icon">🧾</div>
+                        <p class="empty-state-title">Belum Ada Transaksi</p>
+                        <p class="empty-state-desc">Transaksi pembelian rank atau topup akan muncul di sini.</p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Profil Saya</h3>
+          </div>
+          <div class="card-body profile-card-body">
+
+            <!-- Avatar -->
+            <div class="profile-avatar-large" id="profileAvatar">P</div>
+
+            <!-- Info -->
+            <div class="profile-info">
+              <h4 class="profile-name" id="profileName">Player</h4>
+              <p class="profile-mc-username" id="profileMcUsername">@steve</p>
+              <p class="profile-email" id="profileEmail">player@example.com</p>
+              <p class="profile-joined">
+                <i class="fa-regular fa-calendar"></i>
+                Bergabung sejak 2025
+              </p>
+            </div>
+
+            <hr class="profile-divider" />
+
+            <!-- Server Ranks -->
+            <div class="profile-ranks">
+              <h5 class="profile-ranks-title">Server Ranks</h5>
+              <div class="profile-rank-item survival-rank">
+                <span class="profile-rank-label">
+                  <i class="fa-solid fa-tree"></i> Survival
+                </span>
+                <span class="profile-rank-value" id="profileSurvivalRank">Member</span>
+              </div>
+              <div class="profile-rank-item soracitu-rank">
+                <span class="profile-rank-label">
+                  <i class="fa-solid fa-city"></i> Sora City
+                </span>
+                <span class="profile-rank-value" id="profileSoracituRank">Warga</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /.dashboard-grid -->
+
+    </div><!-- /.dashboard-content -->
+  </main><!-- /.dashboard-main -->
+
+  <!-- ░░ TOAST CONTAINER ░░ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ░░ SCRIPTS ░░ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Auth check
+      const user = await requireAuth();
+      if (!user) return;
+
+      // Load profile
+      try {
+        const profile = await getProfile(user.id);
+        document.getElementById('welcomeName').textContent = profile.username;
+        document.getElementById('topbarUsername').textContent = profile.username;
+        document.getElementById('profileName').textContent = profile.username;
+        document.getElementById('profileMcUsername').textContent = '@' + profile.minecraft_username;
+        document.getElementById('profileEmail').textContent = profile.email;
+        document.getElementById('profileAvatar').textContent = profile.username[0].toUpperCase();
+        document.getElementById('sidebarAvatar').textContent = profile.username[0].toUpperCase();
+        document.getElementById('survivalRank').textContent = profile.survival_rank || 'Member';
+        document.getElementById('soracituRank').textContent = profile.soracitu_rank || 'Warga';
+        document.getElementById('profileSurvivalRank').textContent = profile.survival_rank || 'Member';
+        document.getElementById('profileSoracituRank').textContent = profile.soracitu_rank || 'Warga';
+        document.getElementById('balanceSurvival').textContent = formatCurrency(profile.balance || 0);
+        document.getElementById('balanceSoracitu').textContent = formatCurrency(profile.balance || 0);
+
+        // Update sidebar user card name/role
+        const sidebarName = document.querySelector('.sidebar-user-name');
+        if (sidebarName) sidebarName.textContent = profile.username;
+        const sidebarRole = document.querySelector('.sidebar-user-role');
+        if (sidebarRole) sidebarRole.textContent = profile.survival_rank || 'Member';
+
+        // Update topbar avatar
+        const topbarAvatar = document.querySelector('.topbar-user-avatar');
+        if (topbarAvatar) topbarAvatar.textContent = profile.username[0].toUpperCase();
+      } catch(e) { console.error(e); }
+
+      // Load transactions
+      try {
+        const { data: txs } = await supabaseClient
+          .from('transactions')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(10);
+
+        const tbody = document.getElementById('txTableBody');
+        document.getElementById('txCount').textContent = txs?.length || 0;
+
+        if (txs && txs.length > 0) {
+          tbody.innerHTML = txs.map(tx => `
+            <tr>
+              <td>${new Date(tx.created_at).toLocaleDateString('id-ID')}</td>
+              <td>${tx.type === 'rank_purchase' ? '👑 Beli Rank' : '💰 Topup'}</td>
+              <td><span class="badge badge-${tx.server === 'survival' ? 'survival' : 'soracitu'}">${tx.server === 'survival' ? 'Survival' : 'Sora City'}</span></td>
+              <td class="table-amount-negative">${formatCurrency(tx.amount)}</td>
+              <td><span class="table-status ${tx.status === 'completed' ? 'success' : tx.status === 'pending' ? 'pending' : 'failed'}">${tx.status}</span></td>
+            </tr>
+          `).join('');
+        }
+      } catch(e) { console.error(e); }
+
+      // Sidebar mobile toggle
+      const toggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      toggle?.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('visible');
+      });
+      overlay?.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('visible');
+      });
+
+      // Logout
+      document.getElementById('logoutBtn')?.addEventListener('click', () => signOut());
+    });
+  </script>
+
+</body>
+</html>
